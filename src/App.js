@@ -1,13 +1,19 @@
 import "./App.css";
 
 function App() {
-  const title = "Welcome to the Staff Information System";
-
   return (
     <div className="App">
       <div className="content">
-        <h1>{title}</h1>
-        <h2>WEe have to discuss UI now.</h2>
+        <h1>Welcome to the Staff Information System</h1>
+        <p>This system provides access to information about staff members.</p>
+        <p>Features:</p>
+        <ul>
+          <li>View staff profiles</li>
+          <li>Search for staff members</li>
+          <li>Add new staff members</li>
+          {/* Add more features as needed */}
+        </ul>
+        <p>Get started by navigating through the system using the menu.</p>
       </div>
     </div>
   );
