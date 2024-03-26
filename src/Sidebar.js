@@ -1,7 +1,7 @@
 import React from "react";
 import "./css/sidebar.css";
 
-const Sidebar = () => {
+const Sidebar = ({ onSelectOption }) => {
   return (
     <div className="sidebar">
       <div className="sidebar-header">
@@ -9,22 +9,22 @@ const Sidebar = () => {
       </div>
       <div className="sidebar-menu">
         <ul>
-          <li>
+          <li onClick={() => onSelectOption("Dashboard")}>
             <i className="fas fa-chart-line"></i> Dashboard
           </li>
-          <li>
+          <li onClick={() => onSelectOption("Notice Board")}>
             <i className="fas fa-bullhorn"></i> Notice Board
           </li>
-          <li>
+          <li onClick={() => onSelectOption("Assign Task")}>
             <i className="fas fa-tasks"></i> Assign Task
           </li>
-          <li>
+          <li onClick={() => onSelectOption("Worklist")}>
             <i className="fas fa-tasks"></i> Worklist
           </li>
-          <li>
+          <li onClick={() => onSelectOption("Notification")}>
             <i className="fas fa-bell"></i> Notification
           </li>
-          <li>
+          <li onClick={() => onSelectOption("About")}>
             <i className="fas fa-info-circle"></i> About
           </li>
         </ul>
