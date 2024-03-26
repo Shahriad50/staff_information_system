@@ -1,0 +1,21 @@
+.navbar {
+  background-color: #09cbb1; /* Navbar background color */
+  color: rgb(5, 5, 5); /* Text color */
+  height: 60px; /* Navbar height */
+  position: fixed; /* Fixed position */
+  top: 0; /* Stick to the top */
+  left: 0; /* Stick to the left */
+  width: 100%; /* Take full width */
+  display: flex;
+  justify-content: center; /* Center the content horizontally */
+  align-items: center; /* Center the content vertically */
+}
+
+.navbar-brand {
+  text-align: center;
+}
+
+.navbar-title {
+  margin: 0;
+  font-size: 24px; /* Title font size */
+}
