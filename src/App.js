@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
-import MainCard from "./MainCard";
+import DashBoard from "./DashBoard";
 import NoticeBoard from "./NoticeBoard";
 import AssignTask from "./AssignTask";
 import Worklist from "./Worklist";
@@ -19,7 +19,7 @@ function App() {
   const renderMainCard = () => {
     switch (selectedOption) {
       case "Dashboard":
-        return <MainCard />;
+        return <DashBoard />;
       case "Notice Board":
         return <NoticeBoard />;
       case "Assign Task":

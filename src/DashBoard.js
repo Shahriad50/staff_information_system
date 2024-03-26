@@ -2,7 +2,7 @@ import React from "react";
 import Card from "./Card"; // Import the Card component
 import "./css/card.css"; // Import CSS file for styling
 
-const MainCard = () => {
+const DashBoard = () => {
   return (
     <div className="main-card-container">
       <Card title="Committee" />
@@ -12,4 +12,4 @@ const MainCard = () => {
   );
 };
 
-export default MainCard;
+export default DashBoard;
