@@ -1,10 +1,10 @@
-.main-card-container {
+.card-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin-top: 80px; /* Adjust with navbar height */
-  margin-left: 280px;
+  margin-left: 270px; /* Adjust to match the width of the sidebar */
   margin-right: 20px;
   margin-bottom: 20px;
   padding: 20px;
@@ -15,13 +15,14 @@
 }
 
 .card {
-  width: 50%;
-  margin: 10px 0;
+  display: block; /* Ensure the card behaves as a block element */
+  width: 50%; /* Set the width to 100% */
   height: 200px;
   background-color: hwb(154 93% 4%);
   border: 2px solid #050505;
   border-radius: 5px;
   overflow-y: auto;
+  margin: 10px 0;
 }
 
 .card-header {
@@ -31,6 +32,8 @@
 
 .card-header h2 {
   margin: 0;
+  color: black; /* Set text color to black */
+  text-decoration: none; /* Remove underline */
 }
 
 .card-body {

@@ -1,31 +1,33 @@
 import React from "react";
+import { Link, useLocation } from "react-router-dom";
 import "./css/sidebar.css";
 
-const Sidebar = ({ onSelectOption }) => {
+const Sidebar = () => {
+  const location = useLocation();
+
   return (
     <div className="sidebar">
       <div className="sidebar-header">
-        <h2>Staff Information System</h2>
+        <Link to="/">
+          <h2>Staff Information System</h2>
+        </Link>
       </div>
       <div className="sidebar-menu">
         <ul>
-          <li onClick={() => onSelectOption("Dashboard")}>
-            <i className="fas fa-chart-line"></i> Dashboard
+          <li className={location.pathname === "/dashboard" ? "active" : ""}>
+            <Link to="/dashboard">Dashboard</Link>
           </li>
-          <li onClick={() => onSelectOption("Notice Board")}>
-            <i className="fas fa-bullhorn"></i> Notice Board
+          <li className={location.pathname === "/noticeboard" ? "active" : ""}>
+            <Link to="/noticeboard">Notice Board</Link>
           </li>
-          <li onClick={() => onSelectOption("Assign Task")}>
-            <i className="fas fa-tasks"></i> Assign Task
+          <li className={location.pathname === "/assigntask" ? "active" : ""}>
+            <Link to="/assigntask">Assign Task</Link>
           </li>
-          <li onClick={() => onSelectOption("Worklist")}>
-            <i className="fas fa-tasks"></i> Worklist
+          <li className={location.pathname === "/worklist" ? "active" : ""}>
+            <Link to="/worklist">Worklist</Link>
           </li>
-          <li onClick={() => onSelectOption("Notification")}>
-            <i className="fas fa-bell"></i> Notification
-          </li>
-          <li onClick={() => onSelectOption("About")}>
-            <i className="fas fa-info-circle"></i> About
+          <li className={location.pathname === "/about" ? "active" : ""}>
+            <Link to="/about">About</Link>
           </li>
         </ul>
       </div>

@@ -4,7 +4,7 @@ import "./css/card.css";
 
 const NoticeBoard = () => {
   return (
-    <div className="main-card-container">
+    <div className="card-container">
       <Card title="Notice Board" />
       <div className="notice-board-content">
         <h3>Notice Board</h3>
