@@ -11,6 +11,7 @@ import Welcome from "./Welcome";
 import Office from "./Office";
 import Committee from "./Committee";
 import Department from "./Department";
+import Registrar from "./Registrar";
 
 function App() {
   return (
@@ -21,13 +22,18 @@ function App() {
         <Switch>
           <Route path="/" exact component={Welcome} />
           <Route path="/dashboard" exact component={DashBoard} />
-          <Route path="/noticeboard" component={NoticeBoard} />
-          <Route path="/assigntask" component={AssignTask} />
-          <Route path="/worklist" component={Worklist} />
-          <Route path="/about" component={About} />
-          <Route path="/dashboard/committee" component={Committee} />
-          <Route path="/dashboard/office" component={Office} />
-          <Route path="/dashboard/department" component={Department} />
+          <Route path="/noticeboard" exact component={NoticeBoard} />
+          <Route path="/assigntask" exact component={AssignTask} />
+          <Route path="/worklist" exact component={Worklist} />
+          <Route path="/about" exact component={About} />
+          <Route path="/dashboard/committee" exact component={Committee} />
+          <Route path="/dashboard/office" exact component={Office} />
+          <Route path="/dashboard/department" exact component={Department} />
+          <Route
+            path="/dashboard/office/register"
+            exact
+            component={Registrar}
+          />
         </Switch>
       </div>
     </Router>
