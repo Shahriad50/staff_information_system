@@ -1,13 +1,6 @@
-<<<<<<< HEAD
-.main-card-container {
-  /* display: flex;
-  flex-direction: column; */
-  justify-content: center;
-=======
 .card-container {
   display: flex;
   justify-content: space-around; /* Adjust the spacing between cards */
->>>>>>> 734a94be02c80ebf10ee2f6e52aa2e2f8422ba40
   align-items: center;
   flex-wrap: wrap; /* Allow cards to wrap to the next line */
   margin-top: 80px; /* Adjust with navbar height */
@@ -16,11 +9,7 @@
   margin-bottom: 20px;
   padding: 20px;
   box-sizing: border-box;
-<<<<<<< HEAD
-  /* border: 2px solid #050505; MainCard border */
-=======
   /* border: 1px solid #050505; MainCard border */
->>>>>>> 734a94be02c80ebf10ee2f6e52aa2e2f8422ba40
   border-radius: 5px; /* MainCard border radius */
 }
 
