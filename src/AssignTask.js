@@ -4,7 +4,7 @@ import "./css/card.css";
 
 const AssignTask = () => {
   return (
-    <div className="main-card-container">
+    <div className="card-container">
       <Card title="Assign Task" />
       <div className="assign-task-content">
         <h3>Assign Task</h3>

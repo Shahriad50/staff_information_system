@@ -4,7 +4,7 @@ import "./css/card.css";
 
 const Worklist = () => {
   return (
-    <div className="main-card-container">
+    <div className="card-container">
       <Card title="Worklist" />
       <div className="worklist-content">
         <h3>Worklist</h3>

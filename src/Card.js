@@ -7,9 +7,6 @@ const Card = (props) => {
       <div className="card-header">
         <h2>{props.title}</h2>
       </div>
-      <div className="card-body">
-        <p>This is the content of the card.</p>
-      </div>
     </div>
   );
 };

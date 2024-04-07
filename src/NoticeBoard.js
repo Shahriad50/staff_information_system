@@ -145,6 +145,59 @@ const NoticeBoard = () => {
           </div>
         </div>
       </div>
+      <div className="modal fade" id="noticeModal" tabindex="-1" aria-labelledby="noticeModalLabel" aria-hidden="true">
+        <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="noticeModalLabel">Add New Notice</h5>
+              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div className="modal-body">
+              <form>
+                <div>
+                <label htmlFor="title">Title:</label>
+                <input type="text" id="title" name="title" required />
+                <br />
+                </div>
+                <div>
+                <label htmlFor="category">Type:</label>
+  <select className="form-select my-2" id="dropdownMenuButton" aria-label="contained">
+  <option selected>Academic</option>
+  <option value="1">Registrar</option>
+  <option value="2">Exam Controller</option>
+  <option value="3">Special</option>
+</select>
+</div>
+
+<div>
+                <label htmlFor="description">Description:</label>
+                <input id="description" name="description" multiline  required></input>
+                <br />
+                </div>
+                <div>
+                <label htmlFor="uploadDate">Upload Date:</label>
+                <input type="date" id="uploadDate" name="uploadDate" required />
+                <br />
+                </div>
+                <div>
+                <label htmlFor="expiryDate">Expiry Date:</label>
+                <input type="date" id="expiryDate" name="expiryDate" required />
+                <br />
+                </div>
+                <div className="file-upload-container">
+                <label htmlFor="file">Add File</label>
+                  <input type="file" id="file" name="file" accept="image/*" />
+                 
+                </div>
+              </form>
+            </div>
+            <div className="modal-footer">
+              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" form="noticeModal" className="btn btn-primary">Add Notice</button>
+            </div>
+          </div>
+        </div>
+      </div>
      
     </div>
   );
