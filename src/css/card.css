@@ -39,3 +39,42 @@
   color: black; /* Set text color to black */
   text-decoration: none; /* Remove underline */
 }
+
+
+/* about.css */
+
+.about-content {
+  padding: 30px;
+  background-color: #fff; /* White background color */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for a subtle elevation effect */
+}
+
+.about-content h3 {
+  font-size: 28px; /* Larger font size for the heading */
+  margin-bottom: 20px; /* Spacing below the heading */
+  color: #333; /* Text color */
+}
+
+.about-content p {
+  font-size: 18px; /* Normal font size for paragraphs */
+  line-height: 1.6; /* Increased line height for better readability */
+  margin-bottom: 20px; /* Spacing below paragraphs */
+  color: #666; /* Text color */
+}
+
+/* Add a border to separate the heading from the content */
+.about-content h3::after {
+  content: "";
+  display: block;
+  width: 50px;
+  height: 3px;
+  margin-top: 10px; /* Spacing above the border */
+}
+
+/* Hover effect for paragraphs */
+.about-content p:hover {
+  color: #007bff; /* Change text color on hover */
+  cursor: pointer; /* Show pointer cursor on hover */
+}
+
