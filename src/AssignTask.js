@@ -34,7 +34,7 @@ const StaffDropdown = () => {
   };
 
   return (
-    <div className="card-container">
+    <div className=" row card-container">
       <div className="staff-dropdown-container">
         <div className="assign-task-content">
           <h2>Assign Task</h2>
