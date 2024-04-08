@@ -3,7 +3,7 @@ import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import DashBoard from "./DashBoard";
-import NoticeBoard from "./NoticeBoard";
+import NoticeBoard from "./Notice/NoticeBoard";
 import AssignTask from "./AssignTask";
 import Worklist from "./Worklist";
 import About from "./About";
