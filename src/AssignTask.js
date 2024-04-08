@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import './css/AssignTask.css';
+import './css/card.css';
 
 const StaffDropdown = () => {
-  const [selectedStaff, setSelectedStaff] = useState('');
-  const [taskDescription, setTaskDescription] = useState('');
-  const [dueDate, setDueDate] = useState('');
-  const [priorityLevel, setPriorityLevel] = useState('');
+  const [selectedStaff, setSelectedStaff] = useState("");
+  const [taskDescription, setTaskDescription] = useState("");
+  const [dueDate, setDueDate] = useState("");
+  const [priorityLevel, setPriorityLevel] = useState("");
 
   const handleStaffChange = (e) => {
     setSelectedStaff(e.target.value);
@@ -25,15 +25,14 @@ const StaffDropdown = () => {
 
   const handleAssign = () => {
     // Your assign logic here
-    console.log('Assign action performed');
-    console.log('Selected Staff:', selectedStaff);
-    console.log('Task Description:', taskDescription);
-    console.log('Due Date:', dueDate);
-    console.log('Priority Level:', priorityLevel);
+    console.log("Assign action performed");
+    console.log("Selected Staff:", selectedStaff);
+    console.log("Task Description:", taskDescription);
+    console.log("Due Date:", dueDate);
+    console.log("Priority Level:", priorityLevel);
   };
 
   return (
-    
     <div className="staff-dropdown-container">
       <div className="assign-task-content">
         <h2>Assign Task</h2>
@@ -63,11 +62,9 @@ const StaffDropdown = () => {
           <label className="label" htmlFor="taskDescription">Task Description:</label>
           <textarea id="taskDescription" value={taskDescription} onChange={handleDescriptionChange} className="textarea-box"></textarea>
         </div>
-        <button onClick={handleAssign} className="assign-button">Assign</button>
       </div>
     </div>
   );
 };
 
 export default StaffDropdown;
-
