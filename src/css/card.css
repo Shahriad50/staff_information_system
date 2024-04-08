@@ -4,15 +4,13 @@
   align-items: center;
   flex-wrap: wrap; /* Allow cards to wrap to the next line */
   margin-top: 80px; /* Adjust with navbar height */
-  margin-left: 250px; /* Adjust to match the width of the sidebar */
+  margin-left: 260px; /* Adjust to match the width of the sidebar */
   margin-right: 20px;
   margin-bottom: 20px;
   padding: 20px;
   box-sizing: border-box;
-  /* border: 1px solid #050505; MainCard border */
   border-radius: 5px; /* MainCard border radius */
 }
-
 
 .card {
   display: flex;
@@ -39,6 +37,7 @@
   color: black; /* Set text color to black */
   text-decoration: none; /* Remove underline */
 }
+
 .staff-dropdown-container {
   display: flex;
   justify-content: center;
@@ -87,6 +86,7 @@
 .assign-button:hover {
   background-color: #45a049;
 }
+
 .label {
   font-size: 18px;
   display: block;

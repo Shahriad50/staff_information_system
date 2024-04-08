@@ -12,6 +12,7 @@ import Office from "./Office";
 import Committee from "./Committee";
 import Department from "./Department";
 import Registrar from "./Registrar";
+import StaffDetails from "./StaffDetails";
 
 function App() {
   return (
@@ -33,6 +34,11 @@ function App() {
             path="/dashboard/office/register"
             exact
             component={Registrar}
+          />
+          <Route
+            path="/dashboard/office/register/:staffId"
+            exact
+            component={StaffDetails}
           />
         </Switch>
       </div>
