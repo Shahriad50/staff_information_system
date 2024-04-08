@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 // import Card from "./Card";
 import "../css/card.css";
 
@@ -68,6 +68,37 @@ const notices = [
   },
 ];
 const NoticeBoard = () => {
+
+  const [notice, setNotice] = useState({
+    title: "",
+    type: "",
+    fileUrl: "",
+    uploadDate: "",
+    expiryDate: "",
+  });
+
+  const onChange = (e) => {
+    e.preventDefault();
+    setNotice({ ...notice, [e.target.name]: e.target.value });
+    console.log(e.target.value)
+  };
+
+  const resetNotice = () => {
+    setNotice({
+      title: "",
+      type: "",
+      fileUrl: "",
+      description:"",
+      uploadDate: "",
+      expiryDate: "",
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    notices.push({ ...notice });
+    resetNotice();
+  };
   return (
     <div className="row card-container">
       <div className="col-8">
@@ -177,10 +208,11 @@ const NoticeBoard = () => {
               ></button>
             </div>
             <div className="modal-body">
-              <form method="POST" type="enctype/multi-part">
+              <form >
                 <div>
+               
                   <label htmlFor="title">Title:</label>
-                  <input type="text" id="title" name="title" required />
+                  <input type="text" id="title" name="title" value={notice.title} onChange={onChange}  required /> 
                   <br />
                 </div>
                 <div>
@@ -200,7 +232,7 @@ const NoticeBoard = () => {
 
                 <div>
                   <label htmlFor="description">Description:</label>
-                  <input id="description" name="description"></input>
+                  <input id="description" name="description"  value={notice.description} onChange={onChange}></input>
                   <br />
                 </div>
                 <div>
@@ -210,22 +242,23 @@ const NoticeBoard = () => {
                     id="uploadDate"
                     name="uploadDate"
                     required
+                    value={notice.uploadDate} onChange={onChange}
                   />
                   <br />
                 </div>
                 <div>
-                  <label htmlFor="expiryDate">Expiry Date:</label>
+                  <label htmlFor="">Expiry Date:</label>
                   <input
                     type="date"
-                    id="expiryDate"
-                    name="expiryDate"
                     required
+                    value={notice.expiryDate} onChange={onChange}
+
                   />
                   <br />
                 </div>
                 <div className="file-upload-container">
                   <label htmlFor="file">Add File</label>
-                  <input type="file" id="file" name="file" accept="image/*" />
+                  <input type="file" id="file" name="file" accept="image/*" value={notice.FileUrl} onChange={onChange}/>
                 </div>
               </form>
             </div>
@@ -241,6 +274,7 @@ const NoticeBoard = () => {
                 type="submit"
                 form="noticeModal"
                 className="btn btn-success"
+                onClick={handleSubmit}
               >
                 Add Notice
               </button>
