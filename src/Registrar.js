@@ -66,6 +66,7 @@ const Registrar = () => {
   const linkStyle = {
     textDecoration: "none", // Remove underline
     color: "black", // Set text color to black // Prevent reduction in card width caused by the link
+    display: "inline-block", // Prevent reduction in card width caused by the link
     width: "50%", // Set width to 100% to avoid affecting the card width
   };
 
@@ -73,7 +74,7 @@ const Registrar = () => {
     <div className="card-container">
       <Link
         to={{
-          pathname: "/dashboard/office/register/staff1",
+          pathname: "/office/register/staff1",
           state: { staff: staff1 },
         }}
         style={linkStyle}
@@ -82,7 +83,7 @@ const Registrar = () => {
       </Link>
       <Link
         to={{
-          pathname: "/dashboard/office/register/staff2",
+          pathname: "/office/register/staff2",
           state: { staff: staff2 },
         }}
         style={linkStyle}
@@ -91,7 +92,7 @@ const Registrar = () => {
       </Link>
       <Link
         to={{
-          pathname: "/dashboard/office/register/staff3",
+          pathname: "/office/register/staff3",
           state: { staff: staff3 },
         }}
         style={linkStyle}

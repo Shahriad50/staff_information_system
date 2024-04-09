@@ -27,7 +27,7 @@ const Worklist = () => {
               <td>{task.date}</td>
               <td>{task.dueDate}</td>
               <td>{task.assignedBy}</td>
-              {/* Conditionally apply CSS class based on status */}
+              
               <td className={task.status === "Completed" ? "completed" : "pending"}>{task.status}</td>
             </tr>
           ))}

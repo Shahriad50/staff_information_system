@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Card from "./Card"; // Import the Card component
 import "./css/card.css"; // Import CSS file for styling
 
-const DashBoard = () => {
+const Information = () => {
   const linkStyle = {
     textDecoration: "none", // Remove underline
     color: "black", // Set text color to black
@@ -15,19 +15,19 @@ const DashBoard = () => {
   return (
     <div className="card-container">
       {/* Link to the '/dashboard/committee' route */}
-      <Link to="/dashboard/committee" style={linkStyle}>
+      <Link to="/committee" style={linkStyle}>
         <Card title="Committee" />
       </Link>
       {/* Link to the '/dashboard/office' route */}
-      <Link to="/dashboard/office" style={linkStyle}>
+      <Link to="/office" style={linkStyle}>
         <Card title="Office" />
       </Link>
       {/* Link to the '/dashboard/department' route */}
-      <Link to="/dashboard/department" style={linkStyle}>
+      <Link to="/department" style={linkStyle}>
         <Card title="Department" />
       </Link>
     </div>
   );
 };
 
-export default DashBoard;
+export default Information;

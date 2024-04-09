@@ -26,11 +26,11 @@
   
   .card-image {
     flex: 0 0 150px; /* Fixed width for the image */
-    margin-right: 20px;
+    margin-right: 10px;
   }
   
   .card-image img {
-    width: 70%;
+    width: 80%;
     border-radius: 50%; /* Round the corners of the image */
   }
   
@@ -41,7 +41,7 @@
   .staff-name {
     margin-top: 0;
     margin-bottom: 5px;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     color: #333; /* Text color for the staff name */
   }
   

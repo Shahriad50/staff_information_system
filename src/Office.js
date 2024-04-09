@@ -15,7 +15,7 @@ const Office = () => {
   return (
     <div className="card-container">
       {/* Link to the '/dashboard/committee' route */}
-      <Link to="/dashboard/office/register" style={linkStyle}>
+      <Link to="/office/register" style={linkStyle}>
         <Card title="Registrar" />
       </Link>
       {/* Link to the '/dashboard/office' route */}

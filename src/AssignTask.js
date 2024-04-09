@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./css/AssignTask.css";
 import "./css/card.css";
 
 const StaffDropdown = () => {
@@ -33,7 +34,7 @@ const StaffDropdown = () => {
   };
 
   return (
-    <div className="card-container">
+    <div className=" row card-container">
       <div className="staff-dropdown-container">
         <div className="assign-task-content">
           <h2>Assign Task</h2>
@@ -92,9 +93,6 @@ const StaffDropdown = () => {
               className="textarea-box"
             ></textarea>
           </div>
-          <button onClick={handleAssign} className="assign-button">
-            Assign
-          </button>
         </div>
       </div>
     </div>

@@ -20,7 +20,7 @@ const DescriptionPage = () => {
           <p>{descriptions.find((task) => task.id === parseInt(id)).description}</p>
           
           {/* Add multiple new lines */}
-          <br /><br /><br /><br /><br /><br /><br /><br />
+          <br /><br /><br /><br /><br /><br /><br />
           
           <p>Have you completed your task? </p>
           <button onClick={() => handleStatusChange("Completed")}>Yes</button>
