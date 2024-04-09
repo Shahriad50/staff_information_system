@@ -13,6 +13,7 @@ import Committee from "./Committee";
 import Department from "./Department";
 import Registrar from "./Registrar";
 import StaffDetails from "./StaffDetails";
+import DescriptionPage from "./DescriptionPage";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
             exact
             component={StaffDetails}
           />
+          <Route path="/description/:id" component={DescriptionPage} />
         </Switch>
       </div>
     </Router>
