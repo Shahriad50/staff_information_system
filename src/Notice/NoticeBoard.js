@@ -68,12 +68,11 @@ const notices = [
   },
 ];
 const NoticeBoard = () => {
-
   const [notice, setNotice] = useState({
     title: "",
     type: "",
     fileUrl: "",
-    uploadDate: "",
+    uploadedDate: "",
     expiryDate: "",
   });
 
@@ -99,6 +98,9 @@ const NoticeBoard = () => {
     notices.push({ ...notice });
     resetNotice();
   };
+  useEffect=()=>{
+
+  }
   return (
     <div className="row card-container">
       <div className="col-8">
@@ -221,12 +223,14 @@ const NoticeBoard = () => {
                     className="form-select my-2"
                     id="dropdownMenuButton"
                     aria-label="contained"
+                    onChange={onChange}
+                    value={notice.type}
                   >
-                    <option selected>Academic</option>
-                    <option value="1">Registrar</option>
-                    <option value="2">Exam Controller</option>
-                    <option value="3">Special</option>
-                    <option value="4">Others</option>
+                    <option value="Academic">Academic</option>
+                    <option value="Register">Registrar</option>
+                    <option value="Exam Controller">Exam Controller</option>
+                    <option value="Special">Special</option>
+                    <option value="Others">Others</option>
                   </select>
                 </div>
 
