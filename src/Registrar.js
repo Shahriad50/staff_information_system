@@ -66,39 +66,39 @@ const Registrar = () => {
   const linkStyle = {
     textDecoration: "none", // Remove underline
     color: "black", // Set text color to black // Prevent reduction in card width caused by the link
-    display: "inline-block", // Prevent reduction in card width caused by the link
-    width: "50%", // Set width to 100% to avoid affecting the card width
   };
 
   return (
     <div className="card-container">
-      <Link
-        to={{
-          pathname: "/office/register/staff1",
-          state: { staff: staff1 },
-        }}
-        style={linkStyle}
-      >
-        <Staff staff={staff1} />
-      </Link>
-      <Link
-        to={{
-          pathname: "/office/register/staff2",
-          state: { staff: staff2 },
-        }}
-        style={linkStyle}
-      >
-        <Staff staff={staff2} />
-      </Link>
-      <Link
-        to={{
-          pathname: "/office/register/staff3",
-          state: { staff: staff3 },
-        }}
-        style={linkStyle}
-      >
-        <Staff staff={staff3} />
-      </Link>
+      <div className="staffcard-container">
+        <Link
+          to={{
+            pathname: "/office/register/staff1",
+            state: { staff: staff1 },
+          }}
+          style={linkStyle}
+        >
+          <Staff staff={staff1} />
+        </Link>
+        <Link
+          to={{
+            pathname: "/office/register/staff2",
+            state: { staff: staff2 },
+          }}
+          style={linkStyle}
+        >
+          <Staff staff={staff2} />
+        </Link>
+        <Link
+          to={{
+            pathname: "/office/register/staff3",
+            state: { staff: staff3 },
+          }}
+          style={linkStyle}
+        >
+          <Staff staff={staff3} />
+        </Link>
+      </div>
     </div>
   );
 };

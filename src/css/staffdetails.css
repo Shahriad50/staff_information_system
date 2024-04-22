@@ -1,0 +1,106 @@
+
+
+  .staff-detailed-card {
+    display: flex;
+    flex-direction: column; /* Display items in a column */
+    align-items: center; /* Center items vertically */
+    width: 90%;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid black;
+    border-radius: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-image {
+    flex: 0 0 150px;
+    margin-bottom: 10px; /* Add margin to separate image from text */
+    display: flex; /* Enable flex layout */
+    align-items: center; /* Center image vertically */
+    justify-content: center; /* Center image horizontally */
+  }
+  
+  .card-image img {
+    width: 15%;
+    border-radius: 20px; /* Adjust border-radius to make it rectangular */
+  }
+  
+  .card-details {
+    width: 100%; /* Ensure details occupy full width */
+    display: flex;
+    flex-direction: column; /* Display items in a column */
+    align-items: center; /* Center items horizontally */
+  }
+  
+  .staff-name {
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-size: 1.5rem;
+    color: #333;
+  }
+  
+  .staff-designation {
+    margin-top: 0;
+    font-size: 1rem;
+    color: #666;
+  }
+  
+  .staff-info {
+    margin-top: 5px;
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .staff-detailed-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid black;
+    border-radius: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-image {
+    flex: 0 0 150px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .card-image img {
+    width: auto; /* Set width to auto to maintain aspect ratio */
+    max-height: 200px; /* Set the maximum height of the image */
+  }
+  
+  
+  .card-details {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .staff-name {
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-size: 1.5rem;
+    color: #333;
+  }
+  
+  .staff-designation {
+    margin-top: 0;
+    font-size: 1rem;
+    color: #666;
+  }
+  
+  .staff-info {
+    margin-top: 5px;
+    font-size: 1rem;
+    color: #333;
+  }

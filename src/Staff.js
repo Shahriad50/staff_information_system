@@ -5,13 +5,13 @@ const Staff = ({ staff }) => {
   const { image, name, designation } = staff;
 
   return (
-    <div className="detailed-card">
-      <div className="card-image">
+    <div className="staff-card">
+      <div className="card-image-staff">
         <img src={image} alt={name.english} />
       </div>
-      <div className="card-details">
-        <h3 className="staff-name">{name.english}</h3>
-        <p className="staff-designation">{designation}</p>
+      <div className="card-details-staff">
+        <h3 className="staff-name-staff">{name.english}</h3>
+        <p className="staff-designation-staff">{designation}</p>
       </div>
     </div>
   );

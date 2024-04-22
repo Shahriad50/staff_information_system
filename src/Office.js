@@ -7,13 +7,13 @@ const Office = () => {
   const linkStyle = {
     textDecoration: "none", // Remove underline
     color: "black", // Set text color to black
-    display: "inline-block", // Prevent reduction in card width caused by the link
-    width: "100%", // Set width to 100% to avoid affecting the card width
-    marginLeft: "250px", // Add left margin
   };
 
   return (
-    <div className="card-container">
+    <div
+      className="card-container"
+      style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}
+    >
       {/* Link to the '/dashboard/committee' route */}
       <Link to="/office/register" style={linkStyle}>
         <Card title="Registrar" />

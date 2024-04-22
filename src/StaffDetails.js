@@ -1,14 +1,30 @@
-import React from "react";
-import "./css/staff.css"; // Import CSS file for styling
+import React, { useState } from "react";
+import Modal from "react-modal";
+import "./css/staffdetails.css"; // Import CSS file for styling
 import "./css/card.css"; // Import CSS file for styling
+
+Modal.setAppElement("#root"); // Set the root element for accessibility
 
 const StaffDetails = ({ location }) => {
   const { staff } = location.state;
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <div className="card-container">
       <div className="staff-detailed-card">
-        <div className="card-image">
+        <div
+          className="card-image"
+          onClick={openModal}
+          style={{ cursor: "pointer" }}
+        >
           <img src={staff.image} alt={staff.name.english} />
         </div>
         <div className="card-details">
@@ -47,6 +63,41 @@ const StaffDetails = ({ location }) => {
           </p>
         </div>
       </div>
+      <Modal
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+        style={{
+          content: {
+            width: "40%",
+            height: "80%",
+            margin: "auto",
+            borderRadius: "20px",
+            boxShadow: "0 0 10px rgba(0, 0, 0, 0.3)",
+            overflow: "auto",
+          },
+        }}
+      >
+        <img
+          src={staff.image}
+          alt={staff.name.english}
+          style={{ maxWidth: "110%", maxHeight: "100%" }}
+        />
+        <button
+          onClick={closeModal}
+          style={{
+            position: "absolute",
+            top: "10px",
+            right: "10px",
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            fontSize: "16px",
+            color: "#333",
+          }}
+        >
+          Close
+        </button>
+      </Modal>
     </div>
   );
 };

@@ -1,30 +1,29 @@
 .card-container {
-  display: flex;
-  justify-content: space-around; /* Adjust the spacing between cards */
-  align-items: center;
-  flex-wrap: wrap; /* Allow cards to wrap to the next line */
   margin-top: 80px; /* Adjust with navbar height */
   margin-left: 270px; /* Adjust to match the width of the sidebar */
   margin-right: 20px;
   margin-bottom: 20px;
-  padding: 20px;
   box-sizing: border-box;
   /* border: 2px solid #050505;MainCard border */
   border-radius: 5px; /* MainCard border radius */
 }
 
+.subcard-container {
+  display: flex; /* Set to flex container */
+  flex-wrap: wrap; /* Allow cards to wrap to the next line */
+  justify-content: space-between; /* Distribute space evenly between cards */
+  margin-bottom: 20px; /* Add margin between rows of cards */
+}
 
 .card {
-  display: flex;
-  align-items: center;
-  justify-content: center; /* Center horizontally */
-  width: 45%;
-  margin-bottom: 20px;
-  padding: 60px; /* Increase padding to increase height */
+  width: 250px; /* Fixed width for each card */
+  height: auto; /* Fixed height for each card */
+  padding: 10px; /* Adjust padding as needed */
   background-color: #ffffff; /* Background color for the card */
   border: 1px solid black; /* Border with black color and 1px width */
-  border-radius: 30px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Box shadow for a subtle elevation effect */
+  border-radius: 30px; /* Border radius for the card */
+  margin-right: 20px; /* Add margin between cards */
+  margin-bottom: 20px; /* Add margin between rows of cards */
 }
 
 .card-header {
@@ -33,10 +32,3 @@
   justify-content: center; /* Center horizontally */
   width: 100%; /* Full width */
 }
-
-.card-header h2 {
-  margin: 0;
-  color: black; /* Set text color to black */
-  text-decoration: none; /* Remove underline */
-}
-

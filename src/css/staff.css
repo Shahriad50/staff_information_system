@@ -1,53 +1,46 @@
-.detailed-card {
+.staffcard-container {
     display: flex;
-    align-items: center;
-    width: 60%;
-    margin-left: 100px;
-    margin-bottom: 20px;
-    padding: 30px;
-    background-color: #ffffff; /* Background color for the card */
-    border: 1px solid black; /* Border with black color and 1px width */
-    border-radius: 30px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Box shadow for a subtle elevation effect */
+    gap: 30px; /* Adjust the space between cards */
   }
-
-  .staff-detailed-card {
+.staff-card {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    width: 80%;
-    margin-bottom: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin: 10px; /* Add margin to decrease space between each card */
     padding: 20px;
-    background-color: #ffffff; /* Background color for the card */
-    border: 1px solid black; /* Border with black color and 1px width */
-    border-radius: 30px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Box shadow for a subtle elevation effect */
+    width:  100%; /* Adjust the width as needed */
   }
   
-  
-  .card-image {
-    flex: 0 0 150px; /* Fixed width for the image */
-    margin-right: 10px;
+  .card-image-staff {
+    width: 100%; /* Make the image container fill the width of the card */
+    height: 230px; /* Adjust the height of the image container */
+    overflow: hidden; /* Ensure the image doesn't overflow */
   }
   
-  .card-image img {
-    width: 80%;
-    border-radius: 50%; /* Round the corners of the image */
+  .card-image-staff img {
+    width: 100%; /* Make the image fill its container */
+    height: 100%; /* Make the image cover the entire height of the container */
+    object-fit: cover; /* Ensure the image covers the container while preserving aspect ratio */
+    border-radius: 10px 10px 0 0; /* Rounded corners for the top of the image container */
   }
   
-  .card-details {
-    flex-grow: 1; /* Allow the details to grow and occupy remaining space */
+  .card-details-staff {
+    margin-top: 10px; /* Add margin between image and details */
+    text-align: center;
   }
   
-  .staff-name {
-    margin-top: 0;
-    margin-bottom: 5px;
-    font-size: 1.5rem;
-    color: #333; /* Text color for the staff name */
+  .staff-name-staff {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #333;
   }
   
-  .staff-designation {
-    margin-top: 0;
+  .staff-designation-staff {
+    margin: 0;
     font-size: 1rem;
-    color: #666; /* Text color for the staff designation */
+    color: #666;
   }
   

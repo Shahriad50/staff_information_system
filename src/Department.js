@@ -5,8 +5,10 @@ import "./css/card.css"; // Import CSS file for styling
 const Department = () => {
   return (
     <div className="card-container">
-      <Card title="CSE" />
-      <Card title="EEE" />
+      <div className="subcard-container">
+        <Card title="CSE" />
+        <Card title="EEE" />
+      </div>
     </div>
   );
 };
