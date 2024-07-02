@@ -58,9 +58,6 @@ const StaffDetails = ({ location }) => {
           <p className="staff-info">
             <strong>Nationality:</strong> {staff.nationality}
           </p>
-          <p className="staff-info">
-            <strong>Ethnicity:</strong> {staff.ethnicity}
-          </p>
         </div>
       </div>
       <Modal

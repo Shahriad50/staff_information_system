@@ -7,10 +7,10 @@ const Staff = ({ staff }) => {
   return (
     <div className="staff-card">
       <div className="card-image-staff">
-        <img src={image} alt={name.english} />
+        <img src={image} alt={name.bengali} />
       </div>
       <div className="card-details-staff">
-        <h3 className="staff-name-staff">{name.english}</h3>
+        <h3 className="staff-name-staff">{name.bengali}</h3>
         <p className="staff-designation-staff">{designation}</p>
       </div>
     </div>

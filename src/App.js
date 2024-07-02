@@ -11,11 +11,12 @@ import Committee from "./Committee";
 import Department from "./Department";
 import Registrar from "./Registrar";
 import StaffDetails from "./StaffDetails";
+import CSE from "./CSE";
+import EEE from "./EEE";
 
 import DescriptionPage from "./DescriptionPage";
 
 import Information from "./Information";
-
 
 function App() {
   return (
@@ -31,13 +32,26 @@ function App() {
           <Route path="/about" exact component={About} />
           <Route path="/committee" exact component={Committee} />
           <Route path="/office" exact component={Office} />
-          <Route path="/department" exact component={Department} />
           <Route path="/office/register" exact component={Registrar} />
           <Route
             path="/office/register/:staffId"
             exact
             component={StaffDetails}
           />
+          <Route path="/department" exact component={Department} />
+          <Route path="/department/cse" exact component={CSE} />
+          <Route path="/department/eee" exact component={EEE} />
+          <Route
+            path="/department/cse/:staffId"
+            exact
+            component={StaffDetails}
+          />
+          <Route
+            path="/department/eee/:staffId"
+            exact
+            component={StaffDetails}
+          />
+
           <Route path="/description/:id" component={DescriptionPage} />
         </Switch>
       </div>
