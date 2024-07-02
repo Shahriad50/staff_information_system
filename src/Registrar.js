@@ -6,7 +6,8 @@ import staffImage2 from "./assets/pic2.jpg"; // Import the image file
 import staffImage3 from "./assets/pic3.jpg"; // Import the image file
 import noimage from "./assets/noimage.jpg";
 import noimage2 from "./assets/noimage2.jpg";
-import "./css/card.css"; // Import CSS file for styling
+import "./css/card.css";
+import "./css/staff.css"; // Import CSS file for styling
 
 const Registrar = () => {
   // Sample staff data
@@ -19,7 +20,7 @@ const Registrar = () => {
     designation: "রেজিস্ট্রার (ভারপ্রাপ্ত)",
     education: "not available",
     joinDate: "not available",
-    phone: "01819308840",
+    phone: "01822908840",
     email: "registrarcu66@cu.ac.bd",
     gender: "Male",
     bloodGroup: "not available",
@@ -34,10 +35,10 @@ const Registrar = () => {
       english: "Mr. Shamim Ahmed",
       bengali: "জনাব শামীম আহমেদ",
     },
-    designation: "সহকারী রেজিস্ট্রার",
+    designation: "সহকারী রেজিস্ট্রার(রেজিস্ট্রারের সাথে সংযুক্ত শাখা)",
     education: "not available",
     joinDate: "not available",
-    phone: "01719898555",
+    phone: "01777282995",
     email: "not available",
     gender: "Male",
     bloodGroup: "not available",
@@ -50,12 +51,48 @@ const Registrar = () => {
     image: noimage,
     name: {
       english: "Dr. Nasir Uddin",
-      bengali: "জনাব ড. নাছির উদ্দিন",
+      bengali: "জনাব মোঃ নাছির উদ্দিন",
     },
-    designation: "not available",
+    designation: "সহকারী রেজিস্ট্রার(রেজিস্ট্রারের সাথে সংযুক্ত শাখা)",
     education: "not available",
     joinDate: "not available",
-    phone: "not available",
+    phone: "01837336704",
+    email: "not available",
+    gender: "Male",
+    bloodGroup: "not available",
+    religion: "Islam",
+    dob: "not available",
+    nationality: "Bangladeshi",
+  };
+
+  const staff3_1 = {
+    image: noimage,
+    name: {
+      english: "Mr. K. M. Nur Ahmed",
+      bengali: "জনাব কে. এম. নুর আহমেদ",
+    },
+    designation: "ডেপুটি রেজিস্ট্রার (পরিষদ শাখা)",
+    education: "not available",
+    joinDate: "not available",
+    phone: "01822908840",
+    email: "not available",
+    gender: "Male",
+    bloodGroup: "not available",
+    religion: "Islam",
+    dob: "not available",
+    nationality: "Bangladeshi",
+  };
+
+  const staff3_2 = {
+    image: noimage,
+    name: {
+      english: "Mr. Abu Nur Muhammad Abdus shakur",
+      bengali: "জনাব আবু নুর মোঃ আবদুস শাকুর",
+    },
+    designation: "উপ-পরীক্ষা নিয়ন্ত্রক (পরিষদ শাখা)",
+    education: "not available",
+    joinDate: "not available",
+    phone: "01819085074",
     email: "not available",
     gender: "Male",
     bloodGroup: "not available",
@@ -70,10 +107,10 @@ const Registrar = () => {
       english: "Mr. Russell Paul",
       bengali: "জনাব রাসেল পাল",
     },
-    designation: "ট্যাবুলেশন শাখা",
+    designation: "ডেপুটি রেজিস্ট্রার(পরিষদ শাখা)",
     education: "not available",
     joinDate: "not available",
-    phone: "01819336976",
+    phone: "01716167797",
     email: "raselpaulcu82@gmail.com",
     gender: "Male",
     bloodGroup: "not available",
@@ -215,7 +252,7 @@ const Registrar = () => {
 
   return (
     <div className="card-container">
-      <div className="staffcard-container2">
+      <div className="staffcard-container">
         <Link
           to={{
             pathname: "/office/register/staff1",
@@ -242,6 +279,26 @@ const Registrar = () => {
           style={linkStyle}
         >
           <Staff staff={staff3} />
+        </Link>
+
+        <Link
+          to={{
+            pathname: "/office/register/staff3_1",
+            state: { staff: staff3_1 },
+          }}
+          style={linkStyle}
+        >
+          <Staff staff={staff3_1} />
+        </Link>
+
+        <Link
+          to={{
+            pathname: "/office/register/staff3_2",
+            state: { staff: staff3_2 },
+          }}
+          style={linkStyle}
+        >
+          <Staff staff={staff3_2} />
         </Link>
 
         <Link

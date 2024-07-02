@@ -7,6 +7,7 @@ import staffImage3 from "./assets/pic3.jpg"; // Import the image file
 import noimage from "./assets/noimage.jpg";
 import noimage2 from "./assets/noimage2.jpg";
 import "./css/card.css"; // Import CSS file for styling
+import "./css/staff.css";
 
 const CSE = () => {
   // Sample staff data
@@ -69,7 +70,7 @@ const CSE = () => {
 
   return (
     <div className="card-container">
-      <div className="staffcard-container2">
+      <div className="staffcard-container">
         <Link
           to={{
             pathname: "/department/cse/staff1",
