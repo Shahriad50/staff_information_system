@@ -32,6 +32,9 @@ const StaffDetails = ({ location }) => {
           <p className="staff-bengali-name">{staff.name.bengali}</p>
           <p className="staff-designation">{staff.designation}</p>
           <p className="staff-info">
+            <strong>Office:</strong> {staff.Office}
+          </p>
+          <p className="staff-info">
             <strong>Education:</strong> {staff.education}
           </p>
           <p className="staff-info">
