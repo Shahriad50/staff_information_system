@@ -20,12 +20,12 @@ const Information = () => {
 
         {/* Link to the '/dashboard/office' route */}
         <Link to="/office" style={linkStyle}>
-          <Card title="Office" image={office} />
+          <Card title="Offices" image={office} />
         </Link>
 
         {/* Link to the '/dashboard/department' route */}
         <Link to="/department" style={linkStyle}>
-          <Card title="Department" image={eee} />
+          <Card title="Departments" image={eee} />
         </Link>
 
         <Link to="/hall" style={linkStyle}>
