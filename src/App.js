@@ -7,7 +7,7 @@ import AssignTask from "./AssignTask";
 import Worklist from "./Worklist";
 import About from "./About";
 import Office from "./Office";
-import Committee from "./Committee";
+import Hall from "./Hall";
 import Department from "./Department";
 import Registrar from "./Registrar";
 import StaffDetails from "./StaffDetails";
@@ -30,7 +30,7 @@ function App() {
           <Route path="/assigntask" exact component={AssignTask} />
           <Route path="/worklist" exact component={Worklist} />
           <Route path="/about" exact component={About} />
-          <Route path="/committee" exact component={Committee} />
+          <Route path="/hall" exact component={Hall} />
           <Route path="/office" exact component={Office} />
           <Route path="/office/register" exact component={Registrar} />
           <Route

@@ -28,6 +28,7 @@
   height: 230px;
   overflow: hidden;
   border-radius: 10px 10px 0 0;
+  margin-bottom: 40px;
 }
 
 .card-image-staff img {
