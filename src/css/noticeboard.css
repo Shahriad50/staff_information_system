@@ -1,0 +1,12 @@
+#notice_description{
+    width:800;
+    height:200;
+}
+.moal-title{
+    justify-content: center;
+    align-items: center;
+}
+#noticeModalLabel{
+    
+    color: rgb(13, 69, 24);
+}
