@@ -18,11 +18,11 @@ const Office = () => {
           <Card title="Registrar" image={office} />
         </Link>
 
-        <Link to="/office/register" style={linkStyle}>
+        <Link to="/office/vicechancellor" style={linkStyle}>
           <Card title="Vice-chancellor" />
         </Link>
 
-        <Link to="/office/register" style={linkStyle}>
+        <Link to="/office/provicechancellor" style={linkStyle}>
           <Card title="Pro-vice-chancellor" />
         </Link>
         {/* Link to the '/dashboard/office' route */}

@@ -10,6 +10,8 @@ import Office from "./Office";
 import Hall from "./Hall";
 import Department from "./Department";
 import Registrar from "./Registrar";
+import ViceChancellor from "./ViceChancellor";
+import ProViceChancellor from "./ProViceChancellor";
 import StaffDetails from "./StaffDetails";
 import CSE from "./CSE";
 import EEE from "./EEE";
@@ -35,6 +37,28 @@ function App() {
           <Route path="/office/register" exact component={Registrar} />
           <Route
             path="/office/register/:staffId"
+            exact
+            component={StaffDetails}
+          />
+
+          <Route
+            path="/office/vicechancellor"
+            exact
+            component={ViceChancellor}
+          />
+          <Route
+            path="/office/vicechancellor/:staffId"
+            exact
+            component={StaffDetails}
+          />
+
+          <Route
+            path="/office/provicechancellor"
+            exact
+            component={ProViceChancellor}
+          />
+          <Route
+            path="/office/provicechancellor/:staffId"
             exact
             component={StaffDetails}
           />
