@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>API Documentation for Task Management</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding:20px;
+      margin:20 20 20 20;
+    }
+    h1, h2, h3 {
+      color: #333;
+    }
+    .api-endpoint {
+      margin-bottom: 20px;
+    }
+    .api-endpoint h3 {
+      font-weight: bold;
+    }
+    .api-endpoint .method {
+      font-weight: bold;
+      color: #007bff;
+    }
+    .api-endpoint .description {
+      margin-top: 5px;
+    }
+    .api-endpoint .request-body,
+    .api-endpoint .query-parameters,
+    .api-endpoint .response {
+      margin-top: 10px;
+    }
+    .api-endpoint .request-body h4,
+    .api-endpoint .query-parameters h4,
+    .api-endpoint .response h4 {
+      font-weight: bold;
+    }
+    .api-endpoint .request-body pre,
+    .api-endpoint .query-parameters pre,
+    .api-endpoint .response pre {
+      background-color: #f5f5f5;
+      padding: 10px;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>API Documentation for Task Management</h1>
+
+  <h2>Root API endpoint is  "api.bike-csecu.com/api/tasks/{action}</h2>
+
+  <div class="api-endpoint">
+    <h3>
+      <span class="method">GET</span>
+      /api/tasks
+    </h3>
+    <div class="description">Retrieves all tasks from the Assign_Task table.</div>
+    <div class="request-body">
+      <h4>Request Body</h4>
+      <pre>None</pre>
+    </div>
+    <div class="query-parameters">
+      <h4>Query Parameters</h4>
+      <ul>
+        <li><code>page</code> (optional): The page number for pagination. Default is 1.</li>
+        <li><code>limit</code> (optional): The number of records per page. Default is 10.</li>
+        <li><code>sort</code> (optional): The column to sort the results by. Default is 'task_id'.</li>
+        <li><code>order</code> (optional): The order of sorting (asc or desc). Default is 'asc'.</li>
+      </ul>
+    </div>
+    <div class="response">
+      <h4>Response</h4>
+      <pre>{
+  "tasks": [
+    {
+      "task_id": 1,
+      "assign_by": "user1",
+      "assign_to": "user2",
+      "assign_date": "2022-01-01T00:00:00.000Z",
+      "due_date": "2022-01-31T00:00:00.000Z",
+      "task_title": "Task 1",
+      "task_description": "Description of Task 1",
+      "task_attachment": "attachment1.pdf",
+      "task_status": 0
+    },
+    {
+        "task_id": 2,
+        "assign_by": "user3",
+        "assign_to": "user4",
+        "assign_date": "2022-02-01T00:00:00.000Z",
+        "due_date": "2022-02-28T00:00:00.000Z",
+        "task_title": "Task 2",
+        "task_description": "Description of Task 2",
+        "task_attachment": "attachment2.pdf",
+        "task_status": 1
+      },
+      ...
+  ]
+}</pre>
+    </div>
+  </div>
+
+  <div class="api-endpoint">
+    <h3>
+      <span class="method">GET</span>
+      API Endpoint: /api/tasks/mytasks
+    </h3>
+    <div class="description">Retrieves tasks assigned to the logged-in user.</div>
+    <div class="request-body">
+      <h4>Request Body</h4>
+      <pre>None</pre>
+    </div>
+    <div class="query-parameters">
+      <h4>Query Parameters</h4>
+      <ul>
+        <li><code>page</code> (optional): The page number for pagination. Default is 1.</li>
+        <li><code>limit</code> (optional): The number of records per page. Default is 10.</li>
+        <li><code>sort</code> (optional): The column to sort the results by. Default is 'task_id'.</li>
+        <li><code>order</code> (optional): The order of sorting (asc or desc). Default is 'asc'.</li>
+      </ul>
+    </div>
+    <div class="response">
+      <h4>Response</h4>
+      <pre>{
+        "tasks": [
+        {
+          "task_id": 1,
+          "assign_by": "logged-in-user_id",
+          "assign_to": "user2",
+          "assign_date": "2022-01-01T00:00:00.000Z",
+          "due_date": "2022-01-31T00:00:00.000Z",
+          "task_title": "Task 1",
+          "task_description": "Description of Task 1",
+          "task_attachment": "attachment1.pdf",
+          "task_status": 0
+        },
+        {
+            "task_id": 2,
+            "assign_by": "logged-in-user_id",
+            "assign_to": "user4",
+            "assign_date": "2022-02-01T00:00:00.000Z",
+            "due_date": "2022-02-28T00:00:00.000Z",
+            "task_title": "Task 2",
+            "task_description": "Description of Task 2",
+            "task_attachment": "attachment2.pdf",
+            "task_status": 1
+          },
+          ...
+      ]
+    }</pre>
+    </div>
+  </div>
+
+  <div class="api-endpoint">
+    <h3>
+      <span class="method">POST</span>
+      API Endpoint: /api/tasks/add
+    </h3>
+    <div class="description">Creates a new task in the Assign_Task table.</div>
+    <div class="request-body">
+      <h4>Request Body</h4>
+      <pre>{
+  "assign_to": "user2",
+  "assign_date": "2022-01-01T00:00:00.000Z",
+  "due_date": "2022-01-31T00:00:00.000Z",
+  "task_title": "Task 1",
+  "task_description": "Description of Task 1",
+  "task_attachment": "attachment1.pdf",
+  "task_status": 0
+      }</pre>
+    </div>
+    <div class="response">
+      <h4>Response</h4>
+      <pre>{
+        "success": true,
+        "message": "Task added successfully to Assign_Task table.",
+        "form_id": 3
+      }</pre>
+    </div>
+  </div>
+
+  <div class="api-endpoint">
+    <h3>
+      <span class="method">PUT</span>
+      /api/tasks/update/:id
+    </h3>
+    <div class="description">Updates an existing task in the Assign_Task table.</div>
+    <div class="request-body">
+      <h4>Request Body</h4>
+      <h3>Actually it will be used to update the status of that particular task. You don't need to pass all the fields. Pass those what field you want to update</h3>
+      <pre>{
+  "assign_date": "2022-01-01T00:00:00.000Z",
+  "due_date": "2022-01-31T00:00:00.000Z",
+  "task_title": "Task 1",
+  "task_description": "Description of Task 1",
+  "task_attachment": "attachment1.pdf",
+  "task_status": 0
+      }</pre>
+    </div>
+    <div class="response">
+      <h4>Response</h4>
+      <pre>{
+  "message": "Task updated successfully"
+      }</pre>
+    </div>
+  </div>
+
+  <div class="api-endpoint">
+    <h3>
+      <span class="method">DELETE</span>
+      /api/tasks/delete/:id
+    </h3>
+    <div class="description">Deletes an existing task from the Assign_Task table.</div>
+    <div class="request-body">
+      <h4>Request Body</h4>
+      <pre>None</pre>
+    </div>
+    <div class="response">
+      <h4>Response</h4>
+      <pre>{
+  "success": true,
+  "message": "Task with id 3 deleted successfully"
+      }</pre>
+    </div>
+  </div>
+ <h2>Note: The above documentation assumes that the user is authenticated and has the necessary permissions to access the API endpoints.</h2>
+
+  <h3>Conclusion</h3>
+  <p>Thank you for using our API documentation. Please feel free to ask any questions or provide feedback.</p>
+
+  <script>
+    // Add any JavaScript code here if needed
+  </script>
+</body>
+</html>
