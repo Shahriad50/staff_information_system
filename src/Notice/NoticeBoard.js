@@ -1,8 +1,9 @@
 import React,{useState,useEffect} from "react";
 // import Card from "./Card";
 import "../css/card.css";
+import axios from 'axios'
 
-const notices = [
+const noticesArray = [
   {
     id: 1,
     type: "General",
@@ -68,39 +69,88 @@ const notices = [
   },
 ];
 const NoticeBoard = () => {
-  const [notice, setNotice] = useState({
-    title: "",
-    type: "",
-    fileUrl: "",
-    uploadedDate: "",
-    expiryDate: "",
+  let id=11;
+  const [noticeData, setNoticeData] = useState({
+    notice_id:id,
+    notice_title: "",
+    notice_type: "",
+    notice_description:"",
+    notice_attachment: "",
+    // notice_uploaded_Date: "",
+    notice_created_by:"93712a07-0304-11ef-a96d-3c5282764ceb"
   });
+
+  const [notices,setNotices]=useState([])
+  const [totalRecords, setTotalRecords] = useState(0);
+  const [pageCount, setPageCount] = useState(0);
+  const [firstPage, setFirstPage] = useState(0);
+  const [nextPage, setNextPage] = useState(null);
+  const [prevPage, setPrevPage] = useState(null);
+
 
   const onChange = (e) => {
     e.preventDefault();
-    setNotice({ ...notice, [e.target.name]: e.target.value });
+    setNoticeData({ ...noticeData, [e.target.name]: e.target.value });
     console.log(e.target.value)
   };
 
   const resetNotice = () => {
-    setNotice({
-      title: "",
-      type: "",
-      fileUrl: "",
-      description:"",
-      uploadDate: "",
-      expiryDate: "",
+    setNoticeData({
+      notice_id:id+1,
+      notice_title: "",
+    notice_type: "",
+    notice_description:"",
+    notice_attachment: "",
+    // notice_uploaded_Date: "",
+    
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    notices.push({ ...notice });
-    resetNotice();
+    try {
+      console.log(noticeData)
+      const response = await axios.post("http://localhost:5000/api/notice/add/", noticeData);
+      if (response.status === 200) {
+        const data = await response.data;
+        if (data.success) {
+          setNotices((prevNotices) => [...prevNotices, noticeData]);
+          resetNotice();
+          fetchNotices();
+        } else {
+          alert(data.message);
+        }
+      } else {
+        console.error(`Error occurred: ${response.status}`);
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        console.error("Request failed with status code 400");
+      } else {
+        console.error(error);
+      }
+    }
   };
-  useEffect=()=>{
+  useEffect(() => {
+    fetchNotices();
+  }, []);
 
-  }
+  const fetchNotices = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/api/notice/allnotice');
+      if (response.data && Array.isArray(response.data.data)) {
+        setNotices(response.data.data);
+        setTotalRecords(response.data.total_records);
+        setPageCount(response.data.page_count);
+        setFirstPage(response.data.first_page);
+        setNextPage(response.data.next);
+        setPrevPage(response.data.previous);
+      }
+    } catch (error) {
+      console.error('Error fetching notices:', error);
+      setNotices([]); // Set notices to an empty array on error
+    }
+  };
   return (
     <div className="row card-container">
       <div className="col-8">
@@ -110,8 +160,8 @@ const NoticeBoard = () => {
           data-bs-target="#noticeModal"
         >
           <div className="add-icon">
-            <button type="button" class="btn btn-success">
-              <i className="fas fa-plus"> Add New Notice</i>
+            <button type="button" className="btn btn-success">
+              <i className="fas fa-plus"> </i>Add New Notice
             </button>
           </div>
         </div>
@@ -139,19 +189,21 @@ const NoticeBoard = () => {
                   <th>SL</th>
                   <th>Type</th>
                   <th>Title</th>
+                  <th>Description</th>
                   <th>Uploaded Date</th>
                   <th>View File</th>
                 </tr>
               </thead>
               <tbody>
-                {notices.map((notice) => (
-                  <tr key={notice.id}>
-                    <td>{notice.id}</td>
-                    <td>{notice.type}</td>
-                    <td>{notice.title}</td>
-                    <td>{new Date(notice.uploadedDate).toLocaleString()}</td>
+                {notices && notices.map((notice) => (
+                  <tr key={notice.notice_id}>
+                    <td>{notice.notice_id}</td>
+                    <td>{notice.notice_type}</td>
+                    <td>{notice.notice_title}</td>
+                    <td>{notice.notice_description}</td>
+                    <td>{(new Date(notice.notice_uploaded_time)).toLocaleString()}</td>
                     <td>
-                      <a href={notice.fileUrl}>
+                      <a href={process.env.PUBLIC_URL + "/" + notice.notice_attachment}>
                         {" "}
                         <i className="fas fa-file"></i>
                       </a>
@@ -161,8 +213,17 @@ const NoticeBoard = () => {
               </tbody>
             </table>
           </div>
-        </div>
+          </div>
+          <div>
+        <button onClick={() => fetchNotices(prevPage)} disabled={!prevPage}>
+          Previous
+        </button>
+        <button onClick={() => fetchNotices(nextPage)} disabled={!nextPage}>
+          Next
+        </button>
       </div>
+        </div>
+    
       <div className="col-4">
         <div className="filter-container">
           <h4>Filter Notices</h4>
@@ -170,7 +231,7 @@ const NoticeBoard = () => {
             <label htmlFor="typeFilter">Type:</label>
             <select id="typeFilter" className="form-select">
               <option value="">All</option>
-              {Array.from(new Set(notices.map((notice) => notice.type))).map(
+              {Array.from(new Set(notices.map((notice) => notice.notice_type))).map(
                 (type) => (
                   <option key={type} value={type}>
                     {type}
@@ -178,10 +239,6 @@ const NoticeBoard = () => {
                 )
               )}
             </select>
-          </div>
-          <div className="form-group my-3">
-            <label htmlFor="dateFilter">Uploaded Date:</label>
-            <input type="date" id="dateFilter" className="form-control" />
           </div>
           <div className="form-group my-3">
             <label htmlFor="titleFilter">Title:</label>
@@ -192,7 +249,7 @@ const NoticeBoard = () => {
       <div
         className="modal fade"
         id="noticeModal"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="noticeModalLabel"
         aria-hidden="true"
       >
@@ -214,7 +271,7 @@ const NoticeBoard = () => {
                 <div>
                
                   <label htmlFor="title">Title:</label>
-                  <input type="text" id="title" name="title" value={notice.title} onChange={onChange}  required /> 
+                  <input type="text" id="title" name="notice_title" value={noticeData.notice_title} onChange={onChange}  required /> 
                   <br />
                 </div>
                 <div>
@@ -222,9 +279,10 @@ const NoticeBoard = () => {
                   <select
                     className="form-select my-2"
                     id="dropdownMenuButton"
+                    name="notice_type"
                     aria-label="contained"
                     onChange={onChange}
-                    value={notice.type}
+                    value={noticeData.notice_type}
                   >
                     <option value="Academic">Academic</option>
                     <option value="Register">Registrar</option>
@@ -236,33 +294,12 @@ const NoticeBoard = () => {
 
                 <div>
                   <label htmlFor="description">Description:</label>
-                  <input id="description" name="description"  value={notice.description} onChange={onChange}></input>
-                  <br />
-                </div>
-                <div>
-                  <label htmlFor="uploadDate">Upload Date:</label>
-                  <input
-                    type="date"
-                    id="uploadDate"
-                    name="uploadDate"
-                    required
-                    value={notice.uploadDate} onChange={onChange}
-                  />
-                  <br />
-                </div>
-                <div>
-                  <label htmlFor="">Expiry Date:</label>
-                  <input
-                    type="date"
-                    required
-                    value={notice.expiryDate} onChange={onChange}
-
-                  />
+                  <input id="description" name="notice_description"  value={noticeData.notice_description} onChange={onChange}></input>
                   <br />
                 </div>
                 <div className="file-upload-container">
                   <label htmlFor="file">Add File</label>
-                  <input type="file" id="file" name="file" accept="image/*" value={notice.FileUrl} onChange={onChange}/>
+                  <input type="file" id="file" name="notice_attachment" accept="*/*" value={noticeData.notice_attachment} onChange={onChange}/>
                 </div>
               </form>
             </div>
