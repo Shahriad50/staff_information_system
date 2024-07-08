@@ -132,7 +132,7 @@ const NoticeBoard = () => {
 
   const fetchNotices = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/notice/allnotice');
+      const response = await axios.get('api.bike-csecu.com/api/notice/');
       if (response.data && Array.isArray(response.data.data)) {
         setNotices(response.data.data);
         setTotalRecords(response.data.total_records);
