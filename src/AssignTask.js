@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './css/card.css';
+import './css/AssignTask.css';
 
 const StaffDropdown = () => {
   const [selectedStaff, setSelectedStaff] = useState("");
@@ -61,7 +61,7 @@ const StaffDropdown = () => {
         <div className="form-group">
           <label className="label" htmlFor="taskDescription">Task Description:</label>
           <textarea id="taskDescription" value={taskDescription} onChange={handleDescriptionChange} className="textarea-box"></textarea>
-        </div>
+        </div> 
       </div>
     </div>
   );
