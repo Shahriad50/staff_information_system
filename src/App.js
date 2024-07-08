@@ -7,9 +7,11 @@ import AssignTask from "./AssignTask";
 import Worklist from "./Worklist";
 import About from "./About";
 import Office from "./Office";
-import Committee from "./Committee";
+import Hall from "./Hall";
 import Department from "./Department";
 import Registrar from "./Registrar";
+import ViceChancellor from "./ViceChancellor";
+import ProViceChancellor from "./ProViceChancellor";
 import StaffDetails from "./StaffDetails";
 import CSE from "./CSE";
 import EEE from "./EEE";
@@ -30,11 +32,33 @@ function App() {
           <Route path="/assigntask" exact component={AssignTask} />
           <Route path="/worklist" exact component={Worklist} />
           <Route path="/about" exact component={About} />
-          <Route path="/committee" exact component={Committee} />
+          <Route path="/hall" exact component={Hall} />
           <Route path="/office" exact component={Office} />
           <Route path="/office/register" exact component={Registrar} />
           <Route
             path="/office/register/:staffId"
+            exact
+            component={StaffDetails}
+          />
+
+          <Route
+            path="/office/vicechancellor"
+            exact
+            component={ViceChancellor}
+          />
+          <Route
+            path="/office/vicechancellor/:staffId"
+            exact
+            component={StaffDetails}
+          />
+
+          <Route
+            path="/office/provicechancellor"
+            exact
+            component={ProViceChancellor}
+          />
+          <Route
+            path="/office/provicechancellor/:staffId"
             exact
             component={StaffDetails}
           />

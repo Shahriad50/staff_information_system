@@ -1,12 +1,15 @@
+
 import React, { useState } from "react";
 import "./css/AssignTask.css";
 import "./css/card.css";
+
 
 const StaffDropdown = () => {
   const [selectedStaff, setSelectedStaff] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
   const [dueDate, setDueDate] = useState("");
   const [priorityLevel, setPriorityLevel] = useState("");
+  const [message, setMessage] = useState(""); 
 
   const handleStaffChange = (e) => {
     setSelectedStaff(e.target.value);
@@ -24,13 +27,45 @@ const StaffDropdown = () => {
     setPriorityLevel(e.target.value);
   };
 
-  const handleAssign = () => {
-    // Your assign logic here
-    console.log("Assign action performed");
-    console.log("Selected Staff:", selectedStaff);
-    console.log("Task Description:", taskDescription);
-    console.log("Due Date:", dueDate);
-    console.log("Priority Level:", priorityLevel);
+ 
+  
+    const handleAssign = () => {
+      if (!selectedStaff || !taskDescription || !dueDate || !priorityLevel) {
+        setMessage("All fields are required.");
+        return;
+      }
+      const newTask = {
+        assign_to: selectedStaff,
+        assign_date: new Date().toISOString(),
+        due_date: dueDate,
+        task_title: `Task assigned to ${selectedStaff}`,
+        task_description: taskDescription,
+        task_attachment: "", // Add attachment logic if needed
+        task_status: 0 // Default status for new task
+      };
+    fetch("api.bike-csecu.com/api/tasks/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(newTask)
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        setMessage("Task added successfully.");
+        setSelectedStaff("");
+        setTaskDescription("");
+        setDueDate("");
+        setPriorityLevel("");
+      } else {
+        setMessage("Failed to add task. Please try again.");
+      }
+    })
+    .catch(error => {
+      console.error("Error adding task:", error);
+      setMessage("An error occurred. Please try again.");
+    });
   };
 
   return (
@@ -38,6 +73,7 @@ const StaffDropdown = () => {
       <div className="staff-dropdown-container">
         <div className="assign-task-content">
           <h2>Assign Task</h2>
+          {message && <p>{message}</p>}
           <div className="form-group">
             <label className="label" htmlFor="staff">
               Select Staff:
@@ -93,6 +129,9 @@ const StaffDropdown = () => {
               className="textarea-box"
             ></textarea>
           </div>
+          <button onClick={handleAssign} className="assign-button">
+            Assign
+          </button>
         </div>
       </div>
     </div>
