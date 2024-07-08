@@ -69,9 +69,7 @@ const noticesArray = [
   },
 ];
 const NoticeBoard = () => {
-  let id=11;
   const [noticeData, setNoticeData] = useState({
-    notice_id:id,
     notice_title: "",
     notice_type: "",
     notice_description:"",
@@ -96,13 +94,10 @@ const NoticeBoard = () => {
 
   const resetNotice = () => {
     setNoticeData({
-      notice_id:id+1,
-      notice_title: "",
+    notice_title: "",
     notice_type: "",
     notice_description:"",
     notice_attachment: "",
-    // notice_uploaded_Date: "",
-    
     });
   };
 
