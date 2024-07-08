@@ -8,14 +8,12 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       <div className="sidebar-header">
-        <Link to="/">
-          <h2>Staff Information System</h2>
-        </Link>
+        <h2>Staff Information System</h2>
       </div>
       <div className="sidebar-menu">
         <ul>
-          <li className={location.pathname === "/dashboard" ? "active" : ""}>
-            <Link to="/dashboard">Dashboard</Link>
+          <li className={location.pathname === "/" ? "active" : ""}>
+            <Link to="/">Information</Link>
           </li>
           <li className={location.pathname === "/noticeboard" ? "active" : ""}>
             <Link to="/noticeboard">Notice Board</Link>
