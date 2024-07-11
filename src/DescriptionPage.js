@@ -2,14 +2,30 @@ import React, { useState } from "react";
 import descriptions from "./descriptions";
 import { useParams } from "react-router-dom";
 import "./css/description.css"; // Import CSS file for description page styles
-
+import axios from 'axios';
 const DescriptionPage = () => {
   const { id } = useParams();
-  const [status, setStatus] = useState(descriptions.find((task) => task.id === parseInt(id)).status);
+  const [status, setStatus] = useState(0);
 
-  const handleStatusChange = (newStatus) => {
-    setStatus(newStatus);
-    descriptions.find((task) => task.id === parseInt(id)).status = newStatus;
+  const handleStatusChange = async(id) => {
+    setStatus(1);
+    const config = {
+      headers: {
+        
+        "Content-Type": "application/json",
+        "Authorization": "Bearer 078aa707-3a04-11ef-a1cb-3c5282764ceb"
+      },
+    };
+  try{
+    const response=await axios.put(`http://localhost:5000/api/task/update/${id}`,config,status);
+    console.log(response.data
+    );
+    //edit this
+    setStatus(response.data.task_status);
+  }
+  catch(error){
+    console.log(error.message);
+  }
   };
 
   return (
@@ -23,8 +39,8 @@ const DescriptionPage = () => {
           <br /><br /><br /><br /><br /><br /><br />
           
           <p>Have you completed your task? </p>
-          <button onClick={() => handleStatusChange("Completed")}>Yes</button>
-          <button onClick={() => handleStatusChange("Pending")}>No</button>
+          <button onClick={() => handleStatusChange(id)}>Yes</button>
+          <button onClick={() => handleStatusChange(id)}>No</button>
           
           
         </div>
