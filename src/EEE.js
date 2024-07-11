@@ -5,6 +5,7 @@ import Staff from "./Staff";
 import EEEstaffData from "./data/EEEstaff"; // Import the data file
 import "./css/card.css"; // Import CSS file for styling
 import "./css/staff.css";
+import noimage from "./assets/noimage.jpg"; // Import the image file
 
 const EEE = () => {
   const [additionalStaff, setAdditionalStaff] = useState([]);
@@ -29,7 +30,7 @@ const EEE = () => {
             bengali: `${staff.first_name_bn} ${staff.last_name_bn}`,
             english: `${staff.first_name} ${staff.last_name}`,
           },
-          image: staff.profile_image_id, // Assuming this ID can be used to get the image URL
+          image: noimage, //staff.profile_image_id, // Assuming this ID can be used to get the image URL
           designation: staff.role,
           ...staff, // Add other fields if needed
         }));

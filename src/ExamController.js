@@ -2,12 +2,11 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Staff from "./Staff";
-import CSEStaffData from "./data/CSEstaff"; // Import the data file
 import "./css/card.css"; // Import CSS file for styling
 import "./css/staff.css";
 import noimage from "./assets/noimage.jpg"; // Import the image file
 
-const CSE = () => {
+const ExamController = () => {
   const [additionalStaff, setAdditionalStaff] = useState([]);
 
   const linkStyle = {
@@ -23,7 +22,7 @@ const CSE = () => {
     const fetchAdditionalStaff = async () => {
       try {
         const response = await axios.get(
-          "http://api.bike-csecu.com/api/staff/department/CSE"
+          "http://api.bike-csecu.com/api/staff/search?department=exam_controller_office&role=exam_controller"
         );
         const staffData = response.data.data.map((staff) => ({
           name: {
@@ -43,16 +42,16 @@ const CSE = () => {
     fetchAdditionalStaff();
   }, []);
 
-  const allStaffData = [...CSEStaffData, ...additionalStaff];
-
   return (
     <div className="card-container">
       <div className="staffcard-container">
-        {allStaffData.map((staff, index) => (
+        {additionalStaff.map((staff, index) => (
           <Link
             key={index}
             to={{
-              pathname: `/department/cse/${createPathname(staff.name.bengali)}`,
+              pathname: `/office/examcontroller/${createPathname(
+                staff.name.bengali
+              )}`,
               state: { staff },
             }}
             style={linkStyle}
@@ -65,4 +64,4 @@ const CSE = () => {
   );
 };
 
-export default CSE;
+export default ExamController;
