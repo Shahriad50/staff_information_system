@@ -1,80 +1,79 @@
 import React,{useState,useEffect} from "react";
 // import Card from "./Card";
 import "../css/card.css";
-import axios from 'axios'
-
-const noticesArray = [
-  {
-    id: 1,
-    type: "General",
-    title: "Meeting Scheduled",
-    uploadedDate: "2023-07-14T09:30:00",
-    fileUrl: "#",
-  },
-  {
-    id: 2,
-    type: "General",
-    title: "New Policy",
-    uploadedDate: "2023-07-12T17:00:00",
-    fileUrl: "#",
-  },
-  {
-    id: 3,
-    type: "General",
-    title: "Annual Leave",
-    uploadedDate: "2023-06-29T10:45:00",
-    fileUrl: "https://www.ripublication.com/ijaer17/ijaerv12n5_12.pdf",
-  },
-  {
-    id: 4,
-    type: "Important",
-    title: "End of Quarter Reporting",
-    uploadedDate: "2023-07-05T15:30:00",
-    fileUrl: "#",
-  },
-  {
-    id: 5,
-    type: "Important",
-    title: "System Maintenance",
-    uploadedDate: "2023-07-02T09:00:00",
-    fileUrl: "#",
-  },
-  {
-    id: 6,
-    type: "Academic",
-    title: "System Maintenance",
-    uploadedDate: "2023-07-02T09:00:00",
-    fileUrl: "#",
-  },
-  {
-    id: 7,
-    type: "Examination",
-    title: "System Maintenance",
-    uploadedDate: "2023-07-02T09:00:00",
-    fileUrl: "#",
-  },
-  {
-    id: 8,
-    type: "General",
-    title: "Our University wants some papers from students",
-    uploadedDate: "2023-07-02T09:00:00",
-    fileUrl: "#",
-  },
-  {
-    id: 9,
-    type: "Others",
-    title: "System Maintenance",
-    uploadedDate: "2023-07-02T09:00:00",
-    fileUrl: "#",
-  },
-];
+import axios from 'axios';
+import "../css/noticeboard.css";
+// const noticesArray = [
+//   {
+//     id: 1,
+//     type: "General",
+//     title: "Meeting Scheduled",
+//     uploadedDate: "2023-07-14T09:30:00",
+//     fileUrl: "#",
+//   },
+//   {
+//     id: 2,
+//     type: "General",
+//     title: "New Policy",
+//     uploadedDate: "2023-07-12T17:00:00",
+//     fileUrl: "#",
+//   },
+//   {
+//     id: 3,
+//     type: "General",
+//     title: "Annual Leave",
+//     uploadedDate: "2023-06-29T10:45:00",
+//     fileUrl: "https://www.ripublication.com/ijaer17/ijaerv12n5_12.pdf",
+//   },
+//   {
+//     id: 4,
+//     type: "Important",
+//     title: "End of Quarter Reporting",
+//     uploadedDate: "2023-07-05T15:30:00",
+//     fileUrl: "#",
+//   },
+//   {
+//     id: 5,
+//     type: "Important",
+//     title: "System Maintenance",
+//     uploadedDate: "2023-07-02T09:00:00",
+//     fileUrl: "#",
+//   },
+//   {
+//     id: 6,
+//     type: "Academic",
+//     title: "System Maintenance",
+//     uploadedDate: "2023-07-02T09:00:00",
+//     fileUrl: "#",
+//   },
+//   {
+//     id: 7,
+//     type: "Examination",
+//     title: "System Maintenance",
+//     uploadedDate: "2023-07-02T09:00:00",
+//     fileUrl: "#",
+//   },
+//   {
+//     id: 8,
+//     type: "General",
+//     title: "Our University wants some papers from students",
+//     uploadedDate: "2023-07-02T09:00:00",
+//     fileUrl: "#",
+//   },
+//   {
+//     id: 9,
+//     type: "Others",
+//     title: "System Maintenance",
+//     uploadedDate: "2023-07-02T09:00:00",
+//     fileUrl: "#",
+//   },
+// ];
 const NoticeBoard = () => {
   const [noticeData, setNoticeData] = useState({
     notice_title: "",
     notice_type: "",
     notice_description:"",
     notice_attachment: "",
-    // notice_uploaded_Date: "",
     notice_created_by:"93712a07-0304-11ef-a96d-3c5282764ceb"
   });
 
@@ -84,8 +83,13 @@ const NoticeBoard = () => {
   const [firstPage, setFirstPage] = useState(0);
   const [nextPage, setNextPage] = useState(null);
   const [prevPage, setPrevPage] = useState(null);
-
-
+  const [showModal, setShowModal] = useState(false);
+  const handleClose = () => {
+    setShowModal(false);
+  };
+  const openModal = () => {
+    setShowModal(true);
+  };
   const onChange = (e) => {
     e.preventDefault();
     setNoticeData({ ...noticeData, [e.target.name]: e.target.value });
@@ -104,14 +108,21 @@ const NoticeBoard = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      console.log(noticeData)
-      const response = await axios.post("http://localhost:5000/api/notice/add/", noticeData);
+      const config = {
+        headers: {
+          
+          "Content-Type": "application/json",
+          "Authorization": "Bearer 078aa707-3a04-11ef-a1cb-3c5282764ceb"
+        },
+      };
+      const response = await axios.post("http://api.bike-csecu.com/api/notice/add/", noticeData, config);
       if (response.status === 200) {
         const data = await response.data;
         if (data.success) {
           setNotices((prevNotices) => [...prevNotices, noticeData]);
           resetNotice();
           fetchNotices();
+          handleClose();
         } else {
           alert(data.message);
         }
@@ -132,7 +143,8 @@ const NoticeBoard = () => {
 
   const fetchNotices = async () => {
     try {
-      const response = await axios.get('api.bike-csecu.com/api/notice/');
+      const response = await axios.get('http://api.bike-csecu.com/api/notice');
+      console.log(response.data);
       if (response.data && Array.isArray(response.data.data)) {
         setNotices(response.data.data);
         setTotalRecords(response.data.total_records);
@@ -140,6 +152,7 @@ const NoticeBoard = () => {
         setFirstPage(response.data.first_page);
         setNextPage(response.data.next);
         setPrevPage(response.data.previous);
+        console.log(notices);
       }
     } catch (error) {
       console.error('Error fetching notices:', error);
@@ -154,16 +167,19 @@ const NoticeBoard = () => {
           data-bs-toggle="modal"
           data-bs-target="#noticeModal"
         >
-          <div className="add-icon">
-            <button type="button" className="btn btn-success">
-              <i className="fas fa-plus"> </i>Add New Notice
-            </button>
-          </div>
+          {/* <div className="add-icon"> */}
+           
+               <button className="btn btn-success" onClick={()=>setShowModal(true)}>
+               <i className="fas fa-plus success" tooltip="Add New Notice"></i>
+               
+                </button>  Add New Notice
+
+          {/* </div> */}
         </div>
 
         <div className="col-12 notice-board-content my-5">
           <h3> All Notices</h3>
-          <div className="input-group search-bar">
+          {/* <div className="input-group search-bar">
             <div className="form-outline flex-fill">
               <input
                 type="search"
@@ -175,7 +191,7 @@ const NoticeBoard = () => {
             <button type="button" className="btn btn-primary">
               <i className="fas fa-search"></i>
             </button>
-          </div>
+          </div> */}
 
           <div className="notice-list">
             <table className="table table-striped">
@@ -209,11 +225,11 @@ const NoticeBoard = () => {
             </table>
           </div>
           </div>
-          <div>
-        <button onClick={() => fetchNotices(prevPage)} disabled={!prevPage}>
+          <div className="pagination d-flex justify-content-center mx-3">
+        <button className="btn btn-primary mx-3" onClick={() => fetchNotices(prevPage)} disabled={!prevPage}>
           Previous
         </button>
-        <button onClick={() => fetchNotices(nextPage)} disabled={!nextPage}>
+        <button className="btn btn-primary mx-3" onClick={() => fetchNotices(nextPage)} disabled={!nextPage}>
           Next
         </button>
       </div>
@@ -239,9 +255,12 @@ const NoticeBoard = () => {
             <label htmlFor="titleFilter">Title:</label>
             <input type="text" id="titleFilter" className="form-control" />
           </div>
+          <button type="button" className="btn btn-primary align-items-center ">
+             Filter
+            </button>
         </div>
       </div>
-      <div
+     { showModal && <div
         className="modal fade"
         id="noticeModal"
         tabIndex="-1"
@@ -250,7 +269,7 @@ const NoticeBoard = () => {
       >
         <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
           <div className="modal-content">
-            <div className="modal-header">
+            <div className="modal-header d-flex justify-content-between">
               <h5 className="modal-title" id="noticeModalLabel">
                 Add New Notice
               </h5>
@@ -263,38 +282,39 @@ const NoticeBoard = () => {
             </div>
             <div className="modal-body">
               <form >
-                <div>
+                <div className="title_input  align-items-center my-2">
                
-                  <label htmlFor="title">Title:</label>
-                  <input type="text" id="title" name="notice_title" value={noticeData.notice_title} onChange={onChange}  required /> 
+                  <label htmlFor="title" id="title_level" className="input-level mx-2">Title :</label>
+                  <input className="title_input mx-2" type="text" id="title" name="notice_title" value={noticeData.notice_title} onChange={onChange}  required /> 
                   <br />
                 </div>
-                <div>
-                  <label htmlFor="category">Type:</label>
+                <div className="dropdown-container  align-items-center my-2">
+                  <label htmlFor="category" className="input-level mx-2">Type : </label>
                   <select
-                    className="form-select my-2"
+                    className="form-select mx-2 my-2"
                     id="dropdownMenuButton"
                     name="notice_type"
                     aria-label="contained"
                     onChange={onChange}
                     value={noticeData.notice_type}
                   >
+                    <option value="Event">Event</option>
                     <option value="Academic">Academic</option>
-                    <option value="Register">Registrar</option>
-                    <option value="Exam Controller">Exam Controller</option>
+                    <option value="Examination">Examination</option>
+                    <option value="Registrar">Registrar</option>
                     <option value="Special">Special</option>
                     <option value="Others">Others</option>
                   </select>
                 </div>
 
-                <div>
-                  <label htmlFor="description">Description:</label>
-                  <input id="description" name="notice_description"  value={noticeData.notice_description} onChange={onChange}></input>
+                <div className="description_input">
+                  <label htmlFor="description" className="input-level mx-3 my-2">Description :</label>
+                  <textarea id="description" name="notice_description"  value={noticeData.notice_description} onChange={onChange}></textarea>
                   <br />
                 </div>
                 <div className="file-upload-container">
-                  <label htmlFor="file">Add File</label>
-                  <input type="file" id="file" name="notice_attachment" accept="*/*" value={noticeData.notice_attachment} onChange={onChange}/>
+                  <label htmlFor="file" className="input-level mx-3 my-2 ">Add File :</label>
+                  <input className="file-input mx-2" type="file" id="file" name="notice_attachment" accept="*/*" value={noticeData.notice_attachment} onChange={onChange}/>
                 </div>
               </form>
             </div>
@@ -310,14 +330,14 @@ const NoticeBoard = () => {
                 type="submit"
                 form="noticeModal"
                 className="btn btn-success"
-                onClick={handleSubmit}
+                onSubmit={handleSubmit}
               >
                 Add Notice
               </button>
             </div>
           </div>
         </div>
-      </div>
+      </div>}
     </div>
   );
 };
