@@ -68,18 +68,24 @@ import "../css/noticeboard.css";
 //     fileUrl: "#",
 //   },
 // ];
+const token=process.env.REACT_APP_SESSION_TOKEN;
+console.log(token)
 const NoticeBoard = () => {
   const [noticeData, setNoticeData] = useState({
     notice_title: "",
     notice_type: "",
     notice_description:"",
     notice_attachment: "",
-    notice_created_by:"93712a07-0304-11ef-a96d-3c5282764ceb"
   });
 
   const [notices,setNotices]=useState([])
-  const [totalRecords, setTotalRecords] = useState(0);
-  const [pageCount, setPageCount] = useState(0);
+  // const [filteredNotices, setFilteredNotices] = useState([]);
+  const [filterData, setFilterData] = useState({
+    typeFilter: '',
+    titleFilter: ''
+  });
+  // const [totalRecords, setTotalRecords] = useState(0);
+  // const [pageCount, setPageCount] = useState(0);
   const [firstPage, setFirstPage] = useState(0);
   const [nextPage, setNextPage] = useState(null);
   const [prevPage, setPrevPage] = useState(null);
@@ -93,18 +99,45 @@ const NoticeBoard = () => {
   const onChange = (e) => {
     e.preventDefault();
     setNoticeData({ ...noticeData, [e.target.name]: e.target.value });
-    console.log(e.target.value)
+    // console.log(e.target.value)
   };
 
-  const resetNotice = () => {
-    setNoticeData({
-    notice_title: "",
-    notice_type: "",
-    notice_description:"",
-    notice_attachment: "",
-    });
+  const onFilterDataChange = (e) => {
+    const { id, value } = e.target;
+    setFilterData((prev) => ({
+      ...prev,
+      [id]: value
+    }));
   };
 
+  const handleFilter = async() => {
+    const { typeFilter, titleFilter } = filterData;
+
+    try{
+        const response = await axios.get(`http://api.bike-csecu.com/api/sims/notice/search?q=${typeFilter}&q1=${titleFilter}`);
+        // console.log(response.data);
+        if (response.data && Array.isArray(response.data.data)) {
+          setNotices(response.data.data);
+          setFirstPage(response.data.first_page);
+          setNextPage(response.data.next);
+          setPrevPage(response.data.previous);
+        }
+
+    }catch(error){
+      console.log(error.message);
+    }   
+  };
+  useEffect(() => {
+    if (!showModal) {
+      // If the modal is not visible, reset the form data
+      setNoticeData({
+        notice_title: '',
+        notice_type: 'Event',
+        notice_description: '',
+        notice_attachment: ''
+      });
+    }
+  }, [showModal]);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -112,22 +145,22 @@ const NoticeBoard = () => {
         headers: {
           
           "Content-Type": "application/json",
-          "Authorization": "Bearer 078aa707-3a04-11ef-a1cb-3c5282764ceb"
+          "Authorization": `Bearer ${token}`
         },
       };
-      const response = await axios.post("http://api.bike-csecu.com/api/notice/add/", noticeData, config);
+      const response = await axios.post("http://api.bike-csecu.com/api/notice/", noticeData, config);
       if (response.status === 200) {
         const data = await response.data;
         if (data.success) {
           setNotices((prevNotices) => [...prevNotices, noticeData]);
-          resetNotice();
-          fetchNotices();
           handleClose();
         } else {
           alert(data.message);
+          handleClose();
         }
       } else {
         console.error(`Error occurred: ${response.status}`);
+        handleClose();
       }
     } catch (error) {
       if (error.response && error.response.status === 400) {
@@ -138,21 +171,26 @@ const NoticeBoard = () => {
     }
   };
   useEffect(() => {
-    fetchNotices();
-  }, []);
+    fetchNotices(firstPage);
+  }, );
 
-  const fetchNotices = async () => {
+  const fetchNotices = async (pageNumber) => {
+    // console.log({pageNumber:pageNumber})
     try {
-      const response = await axios.get('http://api.bike-csecu.com/api/notice');
+      const response = await axios.get(`http://api.bike-csecu.com/api/notice?page=${pageNumber.page}`);
       console.log(response.data);
       if (response.data && Array.isArray(response.data.data)) {
         setNotices(response.data.data);
-        setTotalRecords(response.data.total_records);
-        setPageCount(response.data.page_count);
+        // setTotalRecords(response.data.total_records);
+        // setPageCount(response.data.page_count);
         setFirstPage(response.data.first_page);
         setNextPage(response.data.next);
         setPrevPage(response.data.previous);
-        console.log(notices);
+        // console.log(notices);
+        // console.log(firstPage);
+        // console.log(nextPage);
+        // console.log(prevPage);
+        // console.log(totalRecords);
       }
     } catch (error) {
       console.error('Error fetching notices:', error);
@@ -162,37 +200,18 @@ const NoticeBoard = () => {
   return (
     <div className="row card-container">
       <div className="col-8">
-        <div
-          className="add-notice-btn"
-          data-bs-toggle="modal"
-          data-bs-target="#noticeModal"
-        >
-          {/* <div className="add-icon"> */}
+        <div className="add-notice-btn">
+          <div className="add-icon">
            
-               <button className="btn btn-success" onClick={()=>setShowModal(true)}>
-               <i className="fas fa-plus success" tooltip="Add New Notice"></i>
-               
-                </button>  Add New Notice
-
-          {/* </div> */}
+               <button className="btn btn-success" onClick={()=>openModal()}  data-bs-toggle="modal"
+          data-bs-target="#noticeModal">
+               <i className="fas fa-plus success" tooltip="Add New Notice"></i></button>  
+              Add New Notice
+          </div>
         </div>
 
         <div className="col-12 notice-board-content my-5">
           <h3> All Notices</h3>
-          {/* <div className="input-group search-bar">
-            <div className="form-outline flex-fill">
-              <input
-                type="search"
-                id="searchInput"
-                className="form-control form-control-lg"
-                placeholder="Search notice as type"
-              />
-            </div>
-            <button type="button" className="btn btn-primary">
-              <i className="fas fa-search"></i>
-            </button>
-          </div> */}
-
           <div className="notice-list">
             <table className="table table-striped">
               <thead>
@@ -225,7 +244,7 @@ const NoticeBoard = () => {
             </table>
           </div>
           </div>
-          <div className="pagination d-flex justify-content-center mx-3">
+          <div className="pagination mx-3">
         <button className="btn btn-primary mx-3" onClick={() => fetchNotices(prevPage)} disabled={!prevPage}>
           Previous
         </button>
@@ -240,7 +259,7 @@ const NoticeBoard = () => {
           <h4>Filter Notices</h4>
           <div className="form-group my-3">
             <label htmlFor="typeFilter">Type:</label>
-            <select id="typeFilter" className="form-select">
+            <select id="typeFilter" className="form-select" onChange={onFilterDataChange} value={filterData.typeFilter}>
               <option value="">All</option>
               {Array.from(new Set(notices.map((notice) => notice.notice_type))).map(
                 (type) => (
@@ -253,19 +272,20 @@ const NoticeBoard = () => {
           </div>
           <div className="form-group my-3">
             <label htmlFor="titleFilter">Title:</label>
-            <input type="text" id="titleFilter" className="form-control" />
+            <input type="text" id="titleFilter" className="form-control" onChange={onFilterDataChange} value={filterData.titleFilter}/>
           </div>
-          <button type="button" className="btn btn-primary align-items-center ">
+          <button type="button" className="btn btn-primary" onClick={handleFilter}>
              Filter
             </button>
         </div>
       </div>
-     { showModal && <div
-        className="modal fade"
+   { <div
+        className={`modal fade ${showModal ? 'show' : ''}`}
         id="noticeModal"
         tabIndex="-1"
         aria-labelledby="noticeModalLabel"
-        aria-hidden="true"
+        aria-hidden={!showModal}
+        // style={{ display:showModal ? 'block' : 'none' }}
       >
         <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
           <div className="modal-content">
@@ -330,7 +350,7 @@ const NoticeBoard = () => {
                 type="submit"
                 form="noticeModal"
                 className="btn btn-success"
-                onSubmit={handleSubmit}
+                onClick={handleSubmit}
               >
                 Add Notice
               </button>

@@ -18,12 +18,12 @@ const Worklist = () => {
   },[]);
   const fetchWorkList=async()=>{
       const config = {
-        headers: {
-          
-          "Content-Type": "application/json",
-          "Authorization": "Bearer 078aa707-3a04-11ef-a1cb-3c5282764ceb"
-        },
-      };
+          headers: {
+            
+            "Content-Type": "application/json",
+            "Authorization": `Bearer session_token`
+          },
+        };
     try{
       const response=await axios.get("http://api.bike-csecu.com/api/task",config);
       console.log(response.data);
