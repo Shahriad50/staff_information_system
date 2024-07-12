@@ -1,18 +1,45 @@
 
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "./css/AssignTask.css";
 import "./css/card.css";
+import axios from 'axios';
 
-
+const token= process.env.REACT_APP_SESSION_TOKEN;
 const StaffDropdown = () => {
   const [selectedStaff, setSelectedStaff] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
   const [dueDate, setDueDate] = useState("");
-  const [priorityLevel, setPriorityLevel] = useState("");
+  const [title, setTitle] = useState("");
   const [message, setMessage] = useState(""); 
+  const [staffList, setStaffList] = useState([]);
+  const [department,setDepartment]=useState("EEE");
+  // const [selectedStaff, setSelectedStaff] = useState('');
 
-  const handleStaffChange = (e) => {
-    setSelectedStaff(e.target.value);
+  const fetchUserData=async()=>{
+    // Fetch user data from the API
+    try {
+      const response = await axios.get(`http://api.bike-csecu.com/api/user/`); // Update with your API endpoint
+      setDepartment(response.data.data.factor);
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  } 
+  useEffect( () => {
+  //  fetchUserData();
+    // Fetch staff data from the API
+    const fetchStaffData = async () => {
+      try {
+        const response = await axios.get(`http://api.bike-csecu.com/api/staff/department/${department}`); 
+        setStaffList(response.data.data);
+      } catch (error) {
+        console.error('Error fetching staff data:', error);
+      }
+    };
+
+    fetchStaffData();
+  }, );
+  const handleStaffChange = (event) => {
+    setSelectedStaff(event.target.value);
   };
 
   const handleDescriptionChange = (e) => {
@@ -23,14 +50,14 @@ const StaffDropdown = () => {
     setDueDate(e.target.value);
   };
 
-  const handlePriorityChange = (e) => {
-    setPriorityLevel(e.target.value);
+  const handleTitleChange = (e) => {
+    setTitle(e.target.value);
   };
 
  
   
-    const handleAssign = () => {
-      if (!selectedStaff || !taskDescription || !dueDate || !priorityLevel) {
+    const handleAssign = async () => {
+      if (!selectedStaff || !taskDescription || !dueDate ) {
         setMessage("All fields are required.");
         return;
       }
@@ -38,34 +65,36 @@ const StaffDropdown = () => {
         assign_to: selectedStaff,
         assign_date: new Date().toISOString(),
         due_date: dueDate,
-        task_title: `Task assigned to ${selectedStaff}`,
+        task_title: title,
         task_description: taskDescription,
         task_attachment: "", // Add attachment logic if needed
         task_status: 0 // Default status for new task
       };
-    fetch("api.bike-csecu.com/api/tasks/add", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(newTask)
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        setMessage("Task added successfully.");
-        setSelectedStaff("");
-        setTaskDescription("");
-        setDueDate("");
-        setPriorityLevel("");
-      } else {
-        setMessage("Failed to add task. Please try again.");
+      const config ={
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}` 
+        },
       }
-    })
-    .catch(error => {
-      console.error("Error adding task:", error);
-      setMessage("An error occurred. Please try again.");
-    });
+      try{
+        const response= await axios.post("http://api.bike-csecu.com/api/task/add",newTask,config);
+        console.log(response.data);
+        if(response.data){
+            setMessage(`Task added to  successfully.`);
+            setSelectedStaff("");
+            setTaskDescription("");
+            setDueDate("");
+            setTitle("");
+          } else {
+            setMessage("Failed to add task. Please try again.");
+          }
+        }
+      catch(error){
+        console.error("Error assigning task:", error);
+        setMessage("Failed to assign task. Please try again.");
+        return;
+      }
+     
   };
 
   return (
@@ -85,26 +114,23 @@ const StaffDropdown = () => {
               className="select-box"
             >
               <option value="">Choose staff member</option>
-              <option value="staff1">Staff 1</option>
-              <option value="staff2">Staff 2</option>
-              <option value="staff3">Staff 3</option>
+              {staffList.map((staff) => (
+          <option key={staff.user_id} value={staff.user_id}>
+            {staff.first_name} {staff.last_name}
+          </option>
+        ))}
             </select>
           </div>
           <div className="form-group">
-            <label className="label" htmlFor="priorityLevel">
-              Priority Level:
+            <label className="label" htmlFor="task_title">
+             Title :
             </label>
-            <select
-              id="priorityLevel"
-              value={priorityLevel}
-              onChange={handlePriorityChange}
-              className="select-box"
+            <input type="text" className="form-control" placeholder="Enter title for task"
+              id="task_title"
+              value={title}
+              onChange={handleTitleChange}
             >
-              <option value="">Select priority level</option>
-              <option value="High">High</option>
-              <option value="Medium">Medium</option>
-              <option value="Low">Low</option>
-            </select>
+            </input>
           </div>
           <div className="form-group">
             <label className="label" htmlFor="dueDate">
