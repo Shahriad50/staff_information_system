@@ -7,9 +7,9 @@ const token = "ca7b5cd4-3fb7-11ef-a839-3c5282764ceb";
 
 const Modal = ({ message, onClose }) => {
   return (
-    <div className="modal">
-      <div className="modal-content">
-        <span className="close" onClick={onClose}>
+    <div className="modal2">
+      <div className="modal-content2">
+        <span className="close2" onClick={onClose}>
           &times;
         </span>
         <p>{message}</p>
