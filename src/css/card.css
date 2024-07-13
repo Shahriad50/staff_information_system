@@ -29,6 +29,11 @@
   transition: transform 0.3s ease; /* Smooth transition for hover effect */
 }
 
+.card:hover {
+  transform: translateY(-5px); /* Slightly raise the card on hover */
+}
+
+
 .card-header {
   display: flex; /* Use flexbox for header */
   align-items: center; /* Center horizontally */

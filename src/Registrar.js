@@ -10,6 +10,7 @@ const Registrar = () => {
     textDecoration: "none", // Remove underline
     color: "black", // Set text color to black // Prevent reduction in card width caused by the link
   };
+  //nothing
 
   const createPathname = (name) => {
     return name.replace(/\s+/g, "-"); // Replace spaces with dashes

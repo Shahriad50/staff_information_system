@@ -19,6 +19,7 @@ import EEE from "./EEE";
 import DescriptionPage from "./DescriptionPage";
 
 import Information from "./Information";
+import ExamController from "./ExamController";
 
 function App() {
   return (
@@ -37,6 +38,17 @@ function App() {
           <Route path="/office/register" exact component={Registrar} />
           <Route
             path="/office/register/:staffId"
+            exact
+            component={StaffDetails}
+          />
+
+          <Route
+            path="/office/examxontroller"
+            exact
+            component={ExamController}
+          />
+          <Route
+            path="/office/examcontroller/:staffId"
             exact
             component={StaffDetails}
           />
