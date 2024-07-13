@@ -9,34 +9,12 @@ const StaffDropdown = () => {
   const [selectedStaff, setSelectedStaff] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
   const [dueDate, setDueDate] = useState("");
-<<<<<<< HEAD
-  const [title, setTitle] = useState("");
-  // const [taskAttachment, setTaskAttachment] = useState(null);
-=======
   const [taskTitle, setTaskTitle] = useState("");
->>>>>>> 2af4a576fd4d952adbb44ba8b96b5802cf3b7438
+  const [taskAttachment, setTaskAttachment] = useState("");
   const [message, setMessage] = useState("");
   const [staffList, setStaffList] = useState([]);
   const [department, setDepartment] = useState("EEE");
 
-<<<<<<< HEAD
-  // // Utility function to convert file to base64
-  // const toBase64 = (file) => new Promise((resolve, reject) => {
-  //   const reader = new FileReader();
-  //   reader.readAsDataURL(file);
-  //   reader.onload = () => resolve(reader.result.split(',')[1]);
-  //   reader.onerror = error => reject(error);
-  // });
-=======
-  // Utility function to convert file to base64
-  const toBase64 = (file) =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result.split(",")[1]);
-      reader.onerror = (error) => reject(error);
-    });
->>>>>>> 2af4a576fd4d952adbb44ba8b96b5802cf3b7438
 
   useEffect(() => {
     const fetchStaffData = async () => {
@@ -70,19 +48,15 @@ const StaffDropdown = () => {
   };
 
   const handleTitleChange = (e) => {
-    setTitle(e.target.value);
+    setTaskTitle(e.target.value);
   };
 
-  // const handleFileChange = async (e) => {
-  //   const file = e.target.files[0];
-  //   if (file && file.type === "application/pdf") {
-  //     const base64File = await toBase64(file);
-  //     setTaskAttachment(base64File);
-  //   } else {
-  //     setTaskAttachment(null);
-  //     setMessage("Please upload a PDF file.");
-  //   }
-  // };
+  const handleFileChange = async (e) => {
+   e.preventDefault();
+   setTaskAttachment(e.target.value);
+      // setMessage("Please upload a PDF file.");
+    }
+  ;
 
   const handleAssign = async () => {
     if (!selectedStaff || !taskDescription || !dueDate || !taskTitle) {
@@ -96,13 +70,8 @@ const StaffDropdown = () => {
       due_date: dueDate,
       task_title: taskTitle,
       task_description: taskDescription,
-<<<<<<< HEAD
-      // task_attachment: taskAttachment, // Include the Base64 encoded PDF
-      task_status: 0 // Default status for new task
-=======
       task_attachment: taskAttachment, // Include the Base64 encoded PDF
-      task_status: 0, // Default status for new task
->>>>>>> 2af4a576fd4d952adbb44ba8b96b5802cf3b7438
+      task_status: 0 // Default status for new task
     };
 
     const config = {
@@ -124,13 +93,8 @@ const StaffDropdown = () => {
         setSelectedStaff("");
         setTaskDescription("");
         setDueDate("");
-<<<<<<< HEAD
-        setTitle("");
-        // setTaskAttachment(null);
-=======
         setTaskTitle("");
-        setTaskAttachment(null);
->>>>>>> 2af4a576fd4d952adbb44ba8b96b5802cf3b7438
+        setTaskAttachment("");
       } else {
         setMessage("Failed to add task. Please try again.");
       }
@@ -215,18 +179,18 @@ const StaffDropdown = () => {
                 className="textarea-box"
               ></textarea>
             </div>
-            {/* <div className="form-group">
+            <div className="form-group">
               <label className="label" htmlFor="taskAttachment">
-                Task Attachment (PDF):
+                Task Attachment:
               </label>
               <input
                 type="file"
                 id="taskAttachment"
                 onChange={handleFileChange}
-                className="input-box"
-                accept="application/pdf"
+                // className="input-box"
+                accept="*/*"
               />
-            </div> */}
+            </div>
             <button onClick={handleAssign} className="assign-button">
               Assign
             </button>
