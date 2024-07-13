@@ -9,11 +9,10 @@ const StaffDropdown = () => {
   const [selectedStaff, setSelectedStaff] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
   const [dueDate, setDueDate] = useState("");
-  const [title, setTitle] = useState("");
+  const [taskTitle, setTaskTitle] = useState("");
   const [message, setMessage] = useState(""); 
   const [staffList, setStaffList] = useState([]);
   const [department,setDepartment]=useState("EEE");
-  // const [selectedStaff, setSelectedStaff] = useState('');
 
   const fetchUserData=async()=>{
     // Fetch user data from the API
@@ -51,7 +50,7 @@ const StaffDropdown = () => {
   };
 
   const handleTitleChange = (e) => {
-    setTitle(e.target.value);
+    setTaskTitle(e.target.value);
   };
 
  
@@ -65,7 +64,7 @@ const StaffDropdown = () => {
         assign_to: selectedStaff,
         assign_date: new Date().toISOString(),
         due_date: dueDate,
-        task_title: title,
+        task_title: taskTitle,
         task_description: taskDescription,
         task_attachment: "", // Add attachment logic if needed
         task_status: 0 // Default status for new task
@@ -84,7 +83,7 @@ const StaffDropdown = () => {
             setSelectedStaff("");
             setTaskDescription("");
             setDueDate("");
-            setTitle("");
+            setTaskTitle("");
           } else {
             setMessage("Failed to add task. Please try again.");
           }
@@ -127,7 +126,7 @@ const StaffDropdown = () => {
             </label>
             <input type="text" className="form-control" placeholder="Enter title for task"
               id="task_title"
-              value={title}
+              value={taskTitle}
               onChange={handleTitleChange}
             >
             </input>
