@@ -13,7 +13,6 @@ const StaffDropdown = () => {
   const [message, setMessage] = useState("");
   const [staffList, setStaffList] = useState([]);
   const [department, setDepartment] = useState("EEE");
-  const [taskAttachment, setTaskAttachment] = useState(null);
 
   // Utility function to convert file to base64
   const toBase64 = (file) =>
@@ -56,7 +55,7 @@ const StaffDropdown = () => {
   };
 
   const handleTitleChange = (e) => {
-    setTaskTitle(e.target.value);
+    setTitle(e.target.value);
   };
 
   const handleFileChange = async (e) => {
