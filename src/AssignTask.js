@@ -15,12 +15,20 @@ const StaffDropdown = () => {
   const [staffList, setStaffList] = useState([]);
   const [department, setDepartment] = useState("CSE");
 
+  // Utility function to convert file to base64
+  const toBase64 = (file) => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result.split(',')[1]);
+    reader.onerror = error => reject(error);
+  });
+
   useEffect(() => {
     const fetchStaffData = async () => {
       try {
         const response = await axios.get(
           `http://api.bike-csecu.com/api/staff/department/${department}`
-        ); // Update with your API endpoint
+        );
         setStaffList(response.data.data);
       } catch (error) {
         console.error("Error fetching staff data:", error);
@@ -50,10 +58,11 @@ const StaffDropdown = () => {
     setTitle(e.target.value);
   };
 
-  const handleFileChange = (e) => {
+  const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (file && file.type === "application/pdf") {
-      setTaskAttachment(file);
+      const base64File = await toBase64(file);
+      setTaskAttachment(base64File);
     } else {
       setTaskAttachment(null);
       setMessage("Please upload a PDF file.");
@@ -61,36 +70,37 @@ const StaffDropdown = () => {
   };
 
   const handleAssign = async () => {
-    if (!selectedStaff || !taskDescription || !dueDate || !taskAttachment) {
+    if (!selectedStaff || !taskDescription || !dueDate) {
       setMessage("All fields are required.");
       return;
     }
 
-    const formData = new FormData();
-    formData.append("assign_to", selectedStaff);
-    formData.append("assign_date", new Date().toISOString());
-    formData.append("due_date", dueDate);
-    formData.append("task_title", title);
-    formData.append("task_description", taskDescription);
-    formData.append("task_attachment", taskAttachment);
-    formData.append("task_status", 0); // Default status for new task
+    const newTask = {
+      assign_to: selectedStaff,
+      assign_date: new Date().toISOString(),
+      due_date: dueDate,
+      task_title: title,
+      task_description: taskDescription,
+      task_attachment: taskAttachment, // Include the Base64 encoded PDF
+      task_status: 0 // Default status for new task
+    };
 
     const config = {
       headers: {
-        "Content-Type": "multipart/form-data",
-        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       },
     };
 
     try {
       const response = await axios.post(
         "http://api.bike-csecu.com/api/task/add",
-        formData,
+        newTask,
         config
       );
       console.log(response.data);
       if (response.data) {
-        setMessage("Task added successfully.");
+        setMessage(`Task added successfully.`);
         setSelectedStaff("");
         setTaskDescription("");
         setDueDate("");
@@ -203,4 +213,3 @@ const StaffDropdown = () => {
 };
 
 export default StaffDropdown;
-
