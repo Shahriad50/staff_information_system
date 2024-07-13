@@ -1,11 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import "./css/description.css"; // Import CSS file for description page styles
 import axios from 'axios';
+import "./css/description.css"; // Import CSS file for description page styles
 
 const DescriptionPage = () => {
   const { id } = useParams();
-  const [status, setStatus] = useState(0);
+  const [task, setTask] = useState(null);
+
+  useEffect(() => {
+    fetchTaskDetails(id);
+  }, [id]);
+
+  const fetchTaskDetails = async (taskId) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer 078aa707-3a04-11ef-a1cb-3c5282764ceb"
+        },
+      };
+      const response = await axios.get(`http://api.bike-csecu.com/api/task/${taskId}`, config);
+      console.log(response.data);
+      setTask(response.data); // Assuming response.data contains the task details
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   const handleStatusChange = async (taskId, newStatus) => {
     try {
@@ -17,22 +37,29 @@ const DescriptionPage = () => {
       };
       const response = await axios.put(`http://api.bike-csecu.com/api/task/update/${taskId}`, { task_status: newStatus }, config);
       console.log(response.data);
-      setStatus(newStatus);
+      setTask(prevTask => ({
+        ...prevTask,
+        task_status: newStatus
+      }));
     } catch (error) {
       console.log(error.message);
     }
   };
 
+  if (!task) {
+    return <div>Loading...</div>; // Add loading indicator while fetching data
+  }
+
   return (
     <div className="card-container">
       <div>
         <div>
-          <h4>Task Details</h4>
-          <p>Task Description: Fetch from database or use a placeholder</p>
+          <h4>{task.task_title}</h4>
+          <p>{task.task_description}</p>
           
           <p>Have you completed your task?</p>
-          <button onClick={() => handleStatusChange(id, 1)}>Yes</button>
-          <button onClick={() => handleStatusChange(id, 0)}>No</button>
+          <button onClick={() => handleStatusChange(task.task_id, 1)}>Yes</button>
+          <button onClick={() => handleStatusChange(task.task_id, 0)}>No</button>
         </div>
       </div>
     </div>

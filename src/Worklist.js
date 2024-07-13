@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from "react";
 import { Link } from "react-router-dom";
-import descriptions from "./descriptions";
+//import descriptions from "./descriptions";
 import "./css/card.css";
 import "./css/worklist.css";
 import axios from "axios";
