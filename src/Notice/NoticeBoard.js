@@ -172,7 +172,7 @@ const NoticeBoard = () => {
   };
   useEffect(() => {
     fetchNotices(firstPage);
-  }, );
+  }, []);
 
   const fetchNotices = async (pageNumber) => {
     // console.log({pageNumber:pageNumber})

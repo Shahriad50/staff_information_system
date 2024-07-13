@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from 'axios';
 import "./css/description.css"; // Import CSS file for description page styles
 
+const token=process.env.REACT_APP_SESSION_TOKEN;
 const DescriptionPage = () => {
   const { id } = useParams();
   const [task, setTask] = useState(null);
@@ -16,7 +17,7 @@ const DescriptionPage = () => {
       const config = {
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer 078aa707-3a04-11ef-a1cb-3c5282764ceb"
+          "Authorization": `Bearer ${token}`
         },
       };
       const response = await axios.get(`http://api.bike-csecu.com/api/task/${taskId}`, config);
@@ -32,7 +33,7 @@ const DescriptionPage = () => {
       const config = {
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer 078aa707-3a04-11ef-a1cb-3c5282764ceb"
+          "Authorization": `Bearer ${token}`
         },
       };
       const response = await axios.put(`http://api.bike-csecu.com/api/task/update/${taskId}`, { task_status: newStatus }, config);
