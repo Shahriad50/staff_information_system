@@ -3,7 +3,7 @@ import "./css/AssignTask.css";
 import "./css/card.css";
 import axios from "axios";
 
-const token = process.env.REACT_APP_SESSION_TOKEN;
+const token = "ca7b5cd4-3fb7-11ef-a839-3c5282764ceb";
 
 const StaffDropdown = () => {
   const [selectedStaff, setSelectedStaff] = useState("");
