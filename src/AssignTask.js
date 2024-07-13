@@ -10,18 +10,18 @@ const StaffDropdown = () => {
   const [taskDescription, setTaskDescription] = useState("");
   const [dueDate, setDueDate] = useState("");
   const [title, setTitle] = useState("");
-  const [taskAttachment, setTaskAttachment] = useState(null);
+  // const [taskAttachment, setTaskAttachment] = useState(null);
   const [message, setMessage] = useState("");
   const [staffList, setStaffList] = useState([]);
   const [department, setDepartment] = useState("CSE");
 
-  // Utility function to convert file to base64
-  const toBase64 = (file) => new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result.split(',')[1]);
-    reader.onerror = error => reject(error);
-  });
+  // // Utility function to convert file to base64
+  // const toBase64 = (file) => new Promise((resolve, reject) => {
+  //   const reader = new FileReader();
+  //   reader.readAsDataURL(file);
+  //   reader.onload = () => resolve(reader.result.split(',')[1]);
+  //   reader.onerror = error => reject(error);
+  // });
 
   useEffect(() => {
     const fetchStaffData = async () => {
@@ -58,16 +58,16 @@ const StaffDropdown = () => {
     setTitle(e.target.value);
   };
 
-  const handleFileChange = async (e) => {
-    const file = e.target.files[0];
-    if (file && file.type === "application/pdf") {
-      const base64File = await toBase64(file);
-      setTaskAttachment(base64File);
-    } else {
-      setTaskAttachment(null);
-      setMessage("Please upload a PDF file.");
-    }
-  };
+  // const handleFileChange = async (e) => {
+  //   const file = e.target.files[0];
+  //   if (file && file.type === "application/pdf") {
+  //     const base64File = await toBase64(file);
+  //     setTaskAttachment(base64File);
+  //   } else {
+  //     setTaskAttachment(null);
+  //     setMessage("Please upload a PDF file.");
+  //   }
+  // };
 
   const handleAssign = async () => {
     if (!selectedStaff || !taskDescription || !dueDate) {
@@ -81,7 +81,7 @@ const StaffDropdown = () => {
       due_date: dueDate,
       task_title: title,
       task_description: taskDescription,
-      task_attachment: taskAttachment, // Include the Base64 encoded PDF
+      // task_attachment: taskAttachment, // Include the Base64 encoded PDF
       task_status: 0 // Default status for new task
     };
 
@@ -105,7 +105,7 @@ const StaffDropdown = () => {
         setTaskDescription("");
         setDueDate("");
         setTitle("");
-        setTaskAttachment(null);
+        // setTaskAttachment(null);
       } else {
         setMessage("Failed to add task. Please try again.");
       }
@@ -190,7 +190,7 @@ const StaffDropdown = () => {
                 className="textarea-box"
               ></textarea>
             </div>
-            <div className="form-group">
+            {/* <div className="form-group">
               <label className="label" htmlFor="taskAttachment">
                 Task Attachment (PDF):
               </label>
@@ -201,7 +201,7 @@ const StaffDropdown = () => {
                 className="input-box"
                 accept="application/pdf"
               />
-            </div>
+            </div> */}
             <button onClick={handleAssign} className="assign-button">
               Assign
             </button>
