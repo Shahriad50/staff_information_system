@@ -5,6 +5,19 @@ import axios from "axios";
 
 const token = "ca7b5cd4-3fb7-11ef-a839-3c5282764ceb";
 
+const Modal = ({ message, onClose }) => {
+  return (
+    <div className="modal">
+      <div className="modal-content">
+        <span className="close" onClick={onClose}>
+          &times;
+        </span>
+        <p>{message}</p>
+      </div>
+    </div>
+  );
+};
+
 const StaffDropdown = () => {
   const [selectedStaff, setSelectedStaff] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
@@ -14,6 +27,7 @@ const StaffDropdown = () => {
   const [message, setMessage] = useState("");
   const [staffList, setStaffList] = useState([]);
   const [department, setDepartment] = useState("EEE");
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const fetchStaffData = async () => {
@@ -97,6 +111,7 @@ const StaffDropdown = () => {
         setDueDate("");
         setTaskTitle("");
         setTaskAttachment("");
+        setShowModal(true); // Set showModal to true on successful task assignment
       } else {
         setMessage("Failed to add task. Please try again.");
       }
@@ -104,6 +119,10 @@ const StaffDropdown = () => {
       console.error("Error assigning task:", error);
       setMessage("Failed to assign task. Please try again.");
     }
+  };
+
+  const closeModal = () => {
+    setShowModal(false); // Function to close the modal
   };
 
   return (
@@ -199,6 +218,9 @@ const StaffDropdown = () => {
           </div>
         </div>
       </div>
+      {showModal && (
+        <Modal message="Task added successfully." onClose={closeModal} />
+      )}
     </div>
   );
 };
