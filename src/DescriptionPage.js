@@ -17,7 +17,7 @@ const DescriptionPage = () => {
       const config = {
         headers: {
           "Content-Type": "application/json",
-          "Authorization": "Bearer 078aa707-3a04-11ef-a1cb-3c5282764ceb"
+          "Authorization": `Bearer ${token}`
         },
       };
       const response = await axios.get(`http://api.bike-csecu.com/api/task/${taskId}`, config);
