@@ -3,18 +3,23 @@ import "./css/AssignTask.css";
 import "./css/card.css";
 import axios from "axios";
 
-const token = process.env.REACT_APP_SESSION_TOKEN;
+const token = "ca7b5cd4-3fb7-11ef-a839-3c5282764ceb";
 
 const StaffDropdown = () => {
   const [selectedStaff, setSelectedStaff] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
   const [dueDate, setDueDate] = useState("");
+<<<<<<< HEAD
   const [title, setTitle] = useState("");
   // const [taskAttachment, setTaskAttachment] = useState(null);
+=======
+  const [taskTitle, setTaskTitle] = useState("");
+>>>>>>> 2af4a576fd4d952adbb44ba8b96b5802cf3b7438
   const [message, setMessage] = useState("");
   const [staffList, setStaffList] = useState([]);
-  const [department, setDepartment] = useState("CSE");
+  const [department, setDepartment] = useState("EEE");
 
+<<<<<<< HEAD
   // // Utility function to convert file to base64
   // const toBase64 = (file) => new Promise((resolve, reject) => {
   //   const reader = new FileReader();
@@ -22,6 +27,16 @@ const StaffDropdown = () => {
   //   reader.onload = () => resolve(reader.result.split(',')[1]);
   //   reader.onerror = error => reject(error);
   // });
+=======
+  // Utility function to convert file to base64
+  const toBase64 = (file) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result.split(",")[1]);
+      reader.onerror = (error) => reject(error);
+    });
+>>>>>>> 2af4a576fd4d952adbb44ba8b96b5802cf3b7438
 
   useEffect(() => {
     const fetchStaffData = async () => {
@@ -70,7 +85,7 @@ const StaffDropdown = () => {
   // };
 
   const handleAssign = async () => {
-    if (!selectedStaff || !taskDescription || !dueDate) {
+    if (!selectedStaff || !taskDescription || !dueDate || !taskTitle) {
       setMessage("All fields are required.");
       return;
     }
@@ -79,16 +94,21 @@ const StaffDropdown = () => {
       assign_to: selectedStaff,
       assign_date: new Date().toISOString(),
       due_date: dueDate,
-      task_title: title,
+      task_title: taskTitle,
       task_description: taskDescription,
+<<<<<<< HEAD
       // task_attachment: taskAttachment, // Include the Base64 encoded PDF
       task_status: 0 // Default status for new task
+=======
+      task_attachment: taskAttachment, // Include the Base64 encoded PDF
+      task_status: 0, // Default status for new task
+>>>>>>> 2af4a576fd4d952adbb44ba8b96b5802cf3b7438
     };
 
     const config = {
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       },
     };
 
@@ -100,12 +120,17 @@ const StaffDropdown = () => {
       );
       console.log(response.data);
       if (response.data) {
-        setMessage(`Task added successfully.`);
+        setMessage("Task added successfully.");
         setSelectedStaff("");
         setTaskDescription("");
         setDueDate("");
+<<<<<<< HEAD
         setTitle("");
         // setTaskAttachment(null);
+=======
+        setTaskTitle("");
+        setTaskAttachment(null);
+>>>>>>> 2af4a576fd4d952adbb44ba8b96b5802cf3b7438
       } else {
         setMessage("Failed to add task. Please try again.");
       }
@@ -163,7 +188,7 @@ const StaffDropdown = () => {
                 className="form-control"
                 placeholder="Enter title for task"
                 id="task_title"
-                value={title}
+                value={taskTitle}
                 onChange={handleTitleChange}
               />
             </div>
