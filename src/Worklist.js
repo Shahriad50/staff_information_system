@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from "react";
 import { Link } from "react-router-dom";
-import DescriptionPage from "./DescriptionPage";
+import descriptions from "./descriptions";
 import "./css/card.css";
 import "./css/worklist.css";
 import axios from "axios";
@@ -65,7 +65,7 @@ const Worklist = () => {
           {worklists && worklists.map((work) => (
             <tr key={work.task_id}>
               <td>{work.task_id}</td>
-              <td><Link to={`/description/${work.task_id}`}>{work.task_title}<DescriptionPage work={work}/></Link></td>
+              <td><Link to={`/description/${work.task_id}`}>{work.task_title}</Link></td>
               <td>{work.assign_date ? new Date(work.assign_date).toLocaleDateString() : ''}</td>
               <td>{work.due_date ? new Date(work.due_date).toLocaleDateString() : ''}</td>
               <td>{work.first_name} {work.last_name}
