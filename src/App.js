@@ -15,83 +15,75 @@ import ProViceChancellor from "./ProViceChancellor";
 import StaffDetails from "./StaffDetails";
 import CSE from "./CSE";
 import EEE from "./EEE";
-
+import { WorklistProvider } from "./WorklistContext";
 import DescriptionPage from "./DescriptionPage";
-
 import Information from "./Information";
 import ExamController from "./ExamController";
 
 function App() {
   return (
-    <Router>
-      <div>
-        <Navbar />
-        <Sidebar />
-        <Switch>
-          <Route path="/" exact component={Information} />
-          <Route path="/noticeboard" exact component={NoticeBoard} />
-          <Route path="/assigntask" exact component={AssignTask} />
-          <Route path="/worklist" exact component={Worklist} />
-          <Route path="/about" exact component={About} />
-          <Route path="/hall" exact component={Hall} />
-          <Route path="/office" exact component={Office} />
-          <Route path="/office/register" exact component={Registrar} />
-          <Route
-            path="/office/register/:staffId"
-            exact
-            component={StaffDetails}
-          />
-
-          <Route
-            path="/office/examxontroller"
-            exact
-            component={ExamController}
-          />
-          <Route
-            path="/office/examcontroller/:staffId"
-            exact
-            component={StaffDetails}
-          />
-
-          <Route
-            path="/office/vicechancellor"
-            exact
-            component={ViceChancellor}
-          />
-          <Route
-            path="/office/vicechancellor/:staffId"
-            exact
-            component={StaffDetails}
-          />
-
-          <Route
-            path="/office/provicechancellor"
-            exact
-            component={ProViceChancellor}
-          />
-          <Route
-            path="/office/provicechancellor/:staffId"
-            exact
-            component={StaffDetails}
-          />
-          <Route path="/department" exact component={Department} />
-          <Route path="/department/cse" exact component={CSE} />
-          <Route path="/department/eee" exact component={EEE} />
-          <Route
-            path="/department/cse/:staffId"
-            exact
-            component={StaffDetails}
-          />
-          <Route
-            path="/department/eee/:staffId"
-            exact
-            component={StaffDetails}
-          />
-
-          <Route path="/description/:id" component={DescriptionPage} />
-        </Switch>
-      </div>
-    </Router>
+    <WorklistProvider>
+      <Router>
+        <div>
+          <Navbar />
+          <Sidebar />
+          <Switch>
+            <Route path="/" exact component={Information} />
+            <Route path="/noticeboard" exact component={NoticeBoard} />
+            <Route path="/assigntask" exact component={AssignTask} />
+            <Route path="/worklist" exact component={Worklist} />
+            <Route path="/about" exact component={About} />
+            <Route path="/hall" exact component={Hall} />
+            <Route path="/office" exact component={Office} />
+            <Route path="/office/register" exact component={Registrar} />
+            <Route
+              path="/office/register/:staffId"
+              exact
+              component={StaffDetails}
+            />
+            <Route
+              path="/office/examcontroller"
+              exact
+              component={ExamController}
+            />
+            <Route
+              path="/office/examcontroller/:staffId"
+              exact
+              component={StaffDetails}
+            />
+            <Route
+              path="/office/vicechancellor"
+              exact
+              component={ViceChancellor}
+            />
+            <Route
+              path="/office/vicechancellor/:staffId"
+              exact
+              component={StaffDetails}
+            />
+            <Route
+              path="/office/provicechancellor"
+              exact
+              component={ProViceChancellor}
+            />
+            <Route path="/department" exact component={Department} />
+            <Route path="/department/cse" exact component={CSE} />
+            <Route path="/department/eee" exact component={EEE} />
+            <Route
+              path="/department/cse/:staffId"
+              exact
+              component={StaffDetails}
+            />
+            <Route
+              path="/department/eee/:staffId"
+              exact
+              component={StaffDetails}
+            />
+            <Route path="/description/:id" component={DescriptionPage} />
+          </Switch>
+        </div>
+      </Router>
+    </WorklistProvider>
   );
 }
 
