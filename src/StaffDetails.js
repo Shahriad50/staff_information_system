@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
-import "./css/staffdetails.css"; // Import CSS file for styling
-import "./css/card.css"; // Import CSS file for styling
+import "./css/staffdetails.css";
+import "./css/card.css";
 
-Modal.setAppElement("#root"); // Set the root element for accessibility
+Modal.setAppElement("#root");
 
 const StaffDetails = ({ location }) => {
   const { staff } = location.state;
@@ -31,36 +31,38 @@ const StaffDetails = ({ location }) => {
           <h2 className="staff-name">{staff.name.english}</h2>
           <p className="staff-bengali-name">{staff.name.bengali}</p>
           <p className="staff-designation">{staff.designation}</p>
-          <p className="staff-info">
-            <strong>Office:</strong> {staff.Office}
-          </p>
-          <p className="staff-info">
-            <strong>Education:</strong> {staff.education}
-          </p>
-          <p className="staff-info">
-            <strong>Join Date:</strong> {staff.joinDate}
-          </p>
-          <p className="staff-info">
-            <strong>Phone:</strong> {staff.phone}
-          </p>
-          <p className="staff-info">
-            <strong>Email:</strong> {staff.email}
-          </p>
-          <p className="staff-info">
-            <strong>Gender:</strong> {staff.gender}
-          </p>
-          <p className="staff-info">
-            <strong>Blood Group:</strong> {staff.bloodGroup}
-          </p>
-          <p className="staff-info">
-            <strong>Religion:</strong> {staff.religion}
-          </p>
-          <p className="staff-info">
-            <strong>Date of Birth:</strong> {staff.dob}
-          </p>
-          <p className="staff-info">
-            <strong>Nationality:</strong> {staff.nationality}
-          </p>
+          <div className="staff-info-group">
+            <p className="staff-info">
+              <strong>Office:</strong> {staff.Office}
+            </p>
+            <p className="staff-info">
+              <strong>Education:</strong> {staff.education}
+            </p>
+            <p className="staff-info">
+              <strong>Join Date:</strong> {staff.joinDate}
+            </p>
+            <p className="staff-info">
+              <strong>Phone:</strong> {staff.phone}
+            </p>
+            <p className="staff-info">
+              <strong>Email:</strong> {staff.email}
+            </p>
+            <p className="staff-info">
+              <strong>Gender:</strong> {staff.gender}
+            </p>
+            <p className="staff-info">
+              <strong>Blood Group:</strong> {staff.bloodGroup}
+            </p>
+            <p className="staff-info">
+              <strong>Religion:</strong> {staff.religion}
+            </p>
+            <p className="staff-info">
+              <strong>Date of Birth:</strong> {staff.dob}
+            </p>
+            <p className="staff-info">
+              <strong>Nationality:</strong> {staff.nationality}
+            </p>
+          </div>
         </div>
       </div>
       <Modal
@@ -68,35 +70,25 @@ const StaffDetails = ({ location }) => {
         onRequestClose={closeModal}
         style={{
           content: {
-            width: "40%",
-            height: "80%",
+            width: "35vw", // Use 90% of the viewport width
+            height: "90vh", // Use 90% of the viewport height
             margin: "auto",
             borderRadius: "20px",
             boxShadow: "0 0 10px rgba(0, 0, 0, 0.3)",
-            overflow: "auto",
+            overflow: "hidden", // Hide overflow to prevent scrollbars
           },
         }}
       >
-        <img
-          src={staff.image}
-          alt={staff.name.english}
-          style={{ maxWidth: "110%", maxHeight: "100%" }}
-        />
-        <button
-          onClick={closeModal}
-          style={{
-            position: "absolute",
-            top: "10px",
-            right: "10px",
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-            fontSize: "16px",
-            color: "#333",
-          }}
-        >
-          Close
-        </button>
+        <div className="modal-content3">
+          <img
+            src={staff.image}
+            alt={staff.name.english}
+            className="modal-image3"
+          />
+          <button className="modal-close3" onClick={closeModal}>
+            &times;
+          </button>
+        </div>
       </Modal>
     </div>
   );

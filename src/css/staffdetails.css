@@ -1,106 +1,91 @@
+.staff-detailed-card {
+  display: flex;
+  flex-direction: column; /* Display items in a column */
+  align-items: center; /* Center items horizontally */
+  width: 90%;
+  margin: 20px auto; /* Center card horizontally and add margin at the bottom */
+  padding: 20px;
+  background-color: #ffffff;
+  border: 1px solid #ddd; /* Lighten the border color */
+  border-radius: 30px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease; /* Add hover effect */
+}
 
+.staff-detailed-card:hover {
+  transform: translateY(-5px); /* Slightly raise the card on hover */
+}
 
-  .staff-detailed-card {
-    display: flex;
-    flex-direction: column; /* Display items in a column */
-    align-items: center; /* Center items vertically */
-    width: 90%;
-    margin-bottom: 20px;
-    padding: 20px;
-    background-color: #ffffff;
-    border: 1px solid black;
-    border-radius: 30px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .card-image {
-    flex: 0 0 150px;
-    margin-bottom: 10px; /* Add margin to separate image from text */
-    display: flex; /* Enable flex layout */
-    align-items: center; /* Center image vertically */
-    justify-content: center; /* Center image horizontally */
-  }
-  
-  .card-image img {
-    width: 15%;
-    border-radius: 20px; /* Adjust border-radius to make it rectangular */
-  }
-  
-  .card-details {
-    width: 100%; /* Ensure details occupy full width */
-    display: flex;
-    flex-direction: column; /* Display items in a column */
-    align-items: center; /* Center items horizontally */
-  }
-  
-  .staff-name {
-    margin-top: 0;
-    margin-bottom: 5px;
-    font-size: 1.5rem;
-    color: #333;
-  }
-  
-  .staff-designation {
-    margin-top: 0;
-    font-size: 1rem;
-    color: #666;
-  }
-  
-  .staff-info {
-    margin-top: 5px;
-    font-size: 1rem;
-    color: #333;
-  }
-  
-  .staff-detailed-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 90%;
-    margin-bottom: 20px;
-    padding: 20px;
-    background-color: #ffffff;
-    border: 1px solid black;
-    border-radius: 30px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .card-image {
-    flex: 0 0 150px;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .card-image img {
-    width: auto; /* Set width to auto to maintain aspect ratio */
-    max-height: 200px; /* Set the maximum height of the image */
-  }
-  
-  
-  .card-details {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .staff-name {
-    margin-top: 0;
-    margin-bottom: 5px;
-    font-size: 1.5rem;
-    color: #333;
-  }
-  
-  .staff-designation {
-    margin-top: 0;
-    font-size: 1rem;
-    color: #666;
-  }
-  
-  .staff-info {
-    margin-top: 5px;
-    font-size: 1rem;
-    color: #333;
-  }
+.card-image {
+  flex: 0 0 150px;
+  margin-bottom: 20px; /* Add margin to separate image from text */
+  display: flex; /* Enable flex layout */
+  align-items: center; /* Center image vertically */
+  justify-content: center; /* Center image horizontally */
+}
+
+.card-image img {
+  width: auto; /* Set width to auto to maintain aspect ratio */
+  max-height: 200px; /* Set the maximum height of the image */
+  border-radius: 20px; /* Adjust border-radius to make it rectangular */
+}
+
+.card-details {
+  width: 100%; /* Ensure details occupy full width */
+  display: flex;
+  flex-direction: column; /* Display items in a column */
+  align-items: center; /* Center items horizontally */
+  text-align: center; /* Center text */
+}
+
+.staff-name {
+  margin: 0; /* Remove margin */
+  margin-bottom: 5px;
+  font-size: 1.8rem; /* Increase font size */
+  color: #333;
+  font-weight: bold; /* Make name bold */
+}
+
+.staff-designation {
+  margin: 0; /* Remove margin */
+  margin-bottom: 10px; /* Add margin at the bottom */
+  font-size: 1.2rem; /* Increase font size */
+  color: #666;
+}
+
+.staff-info {
+  margin: 5px 0; /* Add margin */
+  font-size: 1rem;
+  color: #333;
+}
+
+.modal-content3 {
+  position: relative;
+  text-align: center;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-image3 {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 20px;
+}
+
+.modal-close3 {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.modal-close3:hover {
+  color: #ff0000;
+}
