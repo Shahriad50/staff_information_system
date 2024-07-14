@@ -1,10 +1,10 @@
 import React,{useState,useEffect} from "react";
 import { Link } from "react-router-dom";
-//import descriptions from "./descriptions";
 import "./css/card.css";
 import "./css/worklist.css";
 import axios from "axios";
 
+const session_token=process.env.REACT_APP_SESSION_TOKEN
 const Worklist = () => {
   const [totalRecords, setTotalRecords] = useState(0);
   const [pageCount, setPageCount] = useState(0);
@@ -14,21 +14,21 @@ const Worklist = () => {
   const[worklists,setWorklists]=useState([]);
 
   useEffect(()=>{
-    fetchWorkList();
+    fetchWorkList(firstPage);
   },[]);
-  const fetchWorkList=async()=>{
+  const fetchWorkList=async(pageNumber)=>{
       const config = {
           headers: {
             
             "Content-Type": "application/json",
-            "Authorization": `Bearer session_token`
+            "Authorization": `Bearer ${session_token}`
           },
         };
     try{
-      const response=await axios.get("http://api.bike-csecu.com/api/task",config);
+      const response=await axios.get(`http://api.bike-csecu.com/api/task?page=${pageNumber.page}`);
       console.log(response.data);
-      if (response.data && Array.isArray(response.data.tasks)) {
-        setWorklists(response.data.tasks);
+      if (response.data && Array.isArray(response.data.data)) {
+        setWorklists(response.data.data);
         setTotalRecords(response.data.total_records);
         setPageCount(response.data.page_count);
         setFirstPage(response.data.first_page);
@@ -75,6 +75,14 @@ const Worklist = () => {
           ))}
         </tbody>
       </table>
+      <div className="pagination mx-3">
+        <button className="btn btn-primary mx-3" onClick={() => fetchWorkList(prevPage)} disabled={!prevPage}>
+          Previous
+        </button>
+        <button className="btn btn-primary mx-3" onClick={() => fetchWorkList(nextPage)} disabled={!nextPage}>
+          Next
+        </button>
+      </div>
     </div>
   );
 };
