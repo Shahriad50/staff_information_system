@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect,useState } from "react";
 import { Link } from "react-router-dom";
 import "./css/card.css";
 import "./css/worklist.css";
@@ -9,7 +9,12 @@ const session_token=process.env.REACT_APP_SESSION_TOKEN
 const Worklist = () => {
   const { worklists, setWorklists } = useContext(WorklistContext);
 
-<<<<<<< HEAD
+  const [totalRecords, setTotalRecords] = useState(0);
+  const [pageCount, setPageCount] = useState(0);
+  const [firstPage, setFirstPage] = useState(0);
+  const [nextPage, setNextPage] = useState(0);
+  const [prevPage, setPrevPage] = useState(0);
+
   useEffect(()=>{
     fetchWorkList(firstPage);
   },[]);
@@ -34,33 +39,13 @@ const Worklist = () => {
         console.log(worklists.length)
       }
       else{
-        console.log(response.status)
-=======
-  useEffect(() => {
-    fetchWorkList();
-  }, []);
-
-  const fetchWorkList = async () => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer session_token`
-      },
-    };
-    try {
-      const response = await axios.get("http://api.bike-csecu.com/api/task", config);
-      console.log(response.data);
-      if (response.data && Array.isArray(response.data.data)) {
-        setWorklists(response.data.data);
-      } else {
         console.log(response.status);
->>>>>>> 512ef4aa15684e83d76f12f76c0dde81305bda1d
       }
-    } catch (error) {
+    }
+    catch(error){
       console.log(error.message);
     }
-  };
-
+  }
   return (
     <div className="card-container">
       <h3>Worklist</h3>
