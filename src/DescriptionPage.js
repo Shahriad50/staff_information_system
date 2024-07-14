@@ -1,16 +1,24 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { useParams, useLocation, useHistory } from "react-router-dom";
 import axios from 'axios';
-import "./css/description.css"; // Import CSS file for description page styles
+import "./css/description.css";
+import { WorklistContext } from './WorklistContext';
 
-const token=process.env.REACT_APP_SESSION_TOKEN;
+const token = process.env.REACT_APP_SESSION_TOKEN;
+
 const DescriptionPage = () => {
   const { id } = useParams();
-  const [task, setTask] = useState(null);
+  const location = useLocation();
+  const history = useHistory();
+  const work = location.state?.work;
+  const { handleStatusUpdate } = useContext(WorklistContext);
+  const [task, setTask] = useState(work || null);
 
   useEffect(() => {
-    fetchTaskDetails(id);
-  }, [id]);
+    if (!work) {
+      fetchTaskDetails(id);
+    }
+  }, [id, work]);
 
   const fetchTaskDetails = async (taskId) => {
     try {
@@ -22,7 +30,7 @@ const DescriptionPage = () => {
       };
       const response = await axios.get(`http://api.bike-csecu.com/api/task/${taskId}`, config);
       console.log(response.data);
-      setTask(response.data); // Assuming response.data contains the task details
+      setTask(response.data);
     } catch (error) {
       console.log(error.message);
     }
@@ -38,17 +46,25 @@ const DescriptionPage = () => {
       };
       const response = await axios.put(`http://api.bike-csecu.com/api/task/update/${taskId}`, { task_status: newStatus }, config);
       console.log(response.data);
+
+      // Update local state
       setTask(prevTask => ({
         ...prevTask,
         task_status: newStatus
       }));
+
+      // Update context state
+      handleStatusUpdate(taskId, newStatus);
+
+      // Redirect or navigate after update
+      history.push('/');
     } catch (error) {
       console.log(error.message);
     }
   };
 
   if (!task) {
-    return <div>Loading...</div>; // Add loading indicator while fetching data
+    return <div>Loading...</div>;
   }
 
   return (
@@ -57,10 +73,9 @@ const DescriptionPage = () => {
         <div>
           <h4>{task.task_title}</h4>
           <p>{task.task_description}</p>
-          
           <p>Have you completed your task?</p>
-          <button onClick={() => handleStatusChange(task.task_id, 1)}>Yes</button>
-          <button onClick={() => handleStatusChange(task.task_id, 0)}>No</button>
+          <button className="yes-no-buttons" onClick={() => handleStatusChange(task.task_id, 1)}>Yes</button>
+          <button className="yes-no-buttons" onClick={() => handleStatusChange(task.task_id, 0)}>No</button>
         </div>
       </div>
     </div>
