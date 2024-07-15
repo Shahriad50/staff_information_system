@@ -18,7 +18,7 @@ const Office = () => {
           <Card title="Registrar" image={office} />
         </Link>
 
-        <Link to="/office/examxontroller" style={linkStyle}>
+        <Link to="/office/examcontroller" style={linkStyle}>
           <Card title="Exam-Controller" />
         </Link>
 

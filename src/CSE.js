@@ -24,7 +24,7 @@ const CSE = () => {
     const fetchAdditionalStaff = async () => {
       try {
         const response = await axios.get(
-          "http://api.bike-csecu.com/api/staff/department/CSE"
+          "http://api.bike-csecu.com:5000/api/staff/department/CSE"
         );
         const staffData = response.data.data.map((staff) => ({
           name: {

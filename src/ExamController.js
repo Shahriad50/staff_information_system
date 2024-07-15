@@ -22,7 +22,7 @@ const ExamController = () => {
     const fetchAdditionalStaff = async () => {
       try {
         const response = await axios.get(
-          "http://api.bike-csecu.com/api/staff/search?department=exam_controller_office&role=exam_controller"
+          "http://api.bike-csecu.com:5000/api/staff/search?department=exam_controller_office&role=exam_controller"
         );
         const staffData = response.data.data.map((staff) => ({
           name: {
