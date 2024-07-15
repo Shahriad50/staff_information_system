@@ -3,7 +3,7 @@ import "./css/AssignTask.css";
 import "./css/card.css";
 import axios from "axios";
 
-const token = "ca7b5cd4-3fb7-11ef-a839-3c5282764ceb";
+const token = process.env.REACT_APP_SESSION_TOKEN;
 
 const Modal = ({ message, onClose }) => {
   return (
@@ -33,7 +33,7 @@ const StaffDropdown = () => {
     const fetchStaffData = async () => {
       try {
         const response = await axios.get(
-          `http://api.bike-csecu.com/api/staff/department/${department}`
+          `http://api.bike-csecu.com:5000/api/staff/department/${department}`
         );
         setStaffList(response.data.data);
       } catch (error) {
@@ -99,7 +99,7 @@ const StaffDropdown = () => {
 
     try {
       const response = await axios.post(
-        "http://api.bike-csecu.com/api/task/add",
+        "http://api.bike-csecu.com:5000/api/task/add",
         newTask,
         config
       );
