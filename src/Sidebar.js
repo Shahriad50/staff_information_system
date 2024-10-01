@@ -18,6 +18,9 @@ const Sidebar = () => {
           <li className={location.pathname === "/noticeboard" ? "active" : ""}>
             <Link to="/noticeboard">Notice Board</Link>
           </li>
+          <li className={location.pathname === "/assigncourse" ? "active" : ""}>
+            <Link to="/assigncourse">Assign Course</Link>
+          </li>
           <li className={location.pathname === "/assigntask" ? "active" : ""}>
             <Link to="/assigntask">Assign Task</Link>
           </li>

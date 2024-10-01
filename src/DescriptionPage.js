@@ -28,7 +28,7 @@ const DescriptionPage = () => {
           "Authorization": `Bearer ${token}`
         },
       };
-      const response = await axios.get(`http://api.bike-csecu.com/api/task/${taskId}`, config);
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/task/${taskId}`, config);
       console.log(response.data);
       setTask(response.data);
     } catch (error) {
