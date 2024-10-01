@@ -33,9 +33,10 @@ const StaffDropdown = () => {
     const fetchStaffData = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_API_URL}/staff/department/${department}`
+          `${process.env.REACT_APP_API_URL}/staff/teacher/${department}`
         );
         setStaffList(response.data.data);
+        console.log(response.data.data);
       } catch (error) {
         console.error("Error fetching staff data:", error);
       }
@@ -62,16 +63,6 @@ const StaffDropdown = () => {
 
   const handleTitleChange = (e) => {
     setTaskTitle(e.target.value);
-  };
-
-  const handleFileChange = async (e) => {
-    e.preventDefault();
-    const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setTaskAttachment(reader.result);
-    };
-    reader.readAsDataURL(file);
   };
 
   const handleAssign = async () => {
@@ -130,7 +121,7 @@ const StaffDropdown = () => {
       <div className="row card-container">
         <div className="staff-dropdown-container">
           <div className="assign-task-content">
-            <h2>Assign Task</h2>
+            <h2>Assign Course</h2>
             {message && <p>{message}</p>}
             <div className="form-group">
               <label className="label" htmlFor="department">
@@ -147,26 +138,29 @@ const StaffDropdown = () => {
               </select>
             </div>
             <div className="form-group">
-              <label className="label" htmlFor="staff">
-                Select Staff:
-              </label>
-              <select
-                id="staff"
-                value={selectedStaff}
-                onChange={handleStaffChange}
-                className="select-box white-background"
-              >
-                <option value="">Choose staff member</option>
-                {staffList.map((staff) => (
-                  <option key={staff.user_id} value={staff.user_id}>
-                    {staff.first_name} {staff.last_name}
-                  </option>
-                ))}
-              </select>
-            </div>
+  <label className="label" htmlFor="staff">
+    Select Teacher:
+  </label>
+  <select
+    id="staff"
+    value={selectedStaff}
+    onChange={handleStaffChange}
+    className="select-box white-background"
+  >
+    <option value="">Choose faculty member</option>
+    {staffList
+      .filter((staff) => staff.role === "professor" || staff.role==="associate_professor" || staff.role==="lecturer")
+      .map((staff) => (
+        <option key={staff.user_id} value={staff.user_id}>
+          {staff.first_name} {staff.last_name}
+        </option>
+      ))}
+  </select>
+</div>
+
             <div className="form-group">
               <label className="label" htmlFor="task_title">
-                Title:
+                Course Name:
               </label>
               <input
                 type="text"
@@ -175,41 +169,6 @@ const StaffDropdown = () => {
                 id="task_title"
                 value={taskTitle}
                 onChange={handleTitleChange}
-              />
-            </div>
-            <div className="form-group">
-              <label className="label" htmlFor="dueDate">
-                Due Date:
-              </label>
-              <input
-                type="date"
-                id="dueDate"
-                value={dueDate}
-                onChange={handleDueDateChange}
-                className="input-box"
-              />
-            </div>
-            <div className="form-group">
-              <label className="label" htmlFor="taskDescription">
-                Task Description:
-              </label>
-              <textarea
-                id="taskDescription"
-                value={taskDescription}
-                onChange={handleDescriptionChange}
-                className="textarea-box"
-              ></textarea>
-            </div>
-            <div className="form-group">
-              <label className="label" htmlFor="taskAttachment">
-                Task Attachment:
-              </label>
-              <input
-                type="file"
-                id="taskAttachment"
-                onChange={handleFileChange}
-                className="input-box"
-                accept="*"
               />
             </div>
             <button onClick={handleAssign} className="assign-button">

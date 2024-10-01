@@ -114,7 +114,7 @@ const NoticeBoard = () => {
     const { typeFilter, titleFilter } = filterData;
 
     try{
-        const response = await axios.get(`http://api.bike-csecu.com:5000/api/sims/notice/search?q=${typeFilter}&q1=${titleFilter}`);
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/sims/notice/search?q=${typeFilter}&q1=${titleFilter}`);
         // console.log(response.data);
         if (response.data && Array.isArray(response.data.data)) {
           setNotices(response.data.data);
@@ -148,7 +148,7 @@ const NoticeBoard = () => {
           "Authorization": `Bearer ${token}`
         },
       };
-      const response = await axios.post("http://api.bike-csecu.com:5000/api/notice/", noticeData, config);
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/notice/`, noticeData, config);
       if (response.status === 200) {
         const data = await response.data;
         if (data.success) {
@@ -177,8 +177,8 @@ const NoticeBoard = () => {
   const fetchNotices = async (pageNumber) => {
     // console.log({pageNumber:pageNumber})
     try {
-      const response = await axios.get(`http://api.bike-csecu.com:5000/api/notice?page=${pageNumber.page}`);
-      console.log(response.data);
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/notice?page=${pageNumber.page}`);
+      // console.log(response.data);
       if (response.data && Array.isArray(response.data.data)) {
         setNotices(response.data.data);
         // setTotalRecords(response.data.total_records);

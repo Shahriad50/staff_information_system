@@ -9,6 +9,7 @@ import About from "./About";
 import Office from "./Office";
 import Hall from "./Hall";
 import Department from "./Department";
+import AssignCourse from "./AssignCourse";
 import Registrar from "./Registrar";
 import ViceChancellor from "./ViceChancellor";
 import ProViceChancellor from "./ProViceChancellor";
@@ -30,6 +31,7 @@ function App() {
           <Switch>
             <Route path="/" exact component={Information} />
             <Route path="/noticeboard" exact component={NoticeBoard} />
+            <Route path="/assigncourse" exact component={AssignCourse} />
             <Route path="/assigntask" exact component={AssignTask} />
             <Route path="/worklist" exact component={Worklist} />
             <Route path="/about" exact component={About} />

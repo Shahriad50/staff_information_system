@@ -24,7 +24,7 @@ const EEE = () => {
     const fetchAdditionalStaff = async () => {
       try {
         const response = await axios.get(
-          "http://api.bike-csecu.com:5000/api/staff/department/EEE"
+          `${process.env.REACT_APP_API_URL}/staff/department/EEE`
         );
         const staffData = response.data.data.map((staff) => ({
           name: {

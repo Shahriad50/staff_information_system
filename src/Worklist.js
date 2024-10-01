@@ -27,8 +27,8 @@ const Worklist = () => {
           },
         };
     try{
-      const response=await axios.get(`http://api.bike-csecu.com:5000/api/task?page=${pageNumber.page}`);
-      console.log(response.data);
+      const response=await axios.get(`${process.env.REACT_APP_API_URL}/task?page=${pageNumber.page}`);
+      // console.log(response.data);
       if (response.data && Array.isArray(response.data.data)) {
         setWorklists(response.data.data);
         setTotalRecords(response.data.total_records);
@@ -36,7 +36,7 @@ const Worklist = () => {
         setFirstPage(response.data.first_page);
         setNextPage(response.data.next);
         setPrevPage(response.data.previous);
-        console.log(worklists.length)
+        // console.log(worklists.length)
       }
       else{
         console.log(response.status);
