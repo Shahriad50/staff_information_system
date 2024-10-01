@@ -20,11 +20,9 @@ const Modal = ({ message, onClose }) => {
 
 const StaffDropdown = () => {
   const [selectedStaff, setSelectedStaff] = useState("");
-  const [taskDescription, setTaskDescription] = useState("");
-  const [dueDate, setDueDate] = useState("");
-  const [taskTitle, setTaskTitle] = useState("");
-  const [taskAttachment, setTaskAttachment] = useState("");
-  const [message, setMessage] = useState("");
+  const[courseCode,setCourseCode]=useState("");
+  const[teacher,setTeacher]=useState("");
+  const [message,setMessage]=useState("");
   const [staffList, setStaffList] = useState([]);
   const [department, setDepartment] = useState("EEE");
   const [showModal, setShowModal] = useState(false);
@@ -49,36 +47,24 @@ const StaffDropdown = () => {
     setDepartment(event.target.value);
   };
 
-  const handleStaffChange = (event) => {
+  const handleTeacherChange = (event) => {
     setSelectedStaff(event.target.value);
+    setTeacher(event.target.value);
   };
-
-  const handleDescriptionChange = (e) => {
-    setTaskDescription(e.target.value);
-  };
-
-  const handleDueDateChange = (e) => {
-    setDueDate(e.target.value);
-  };
-
-  const handleTitleChange = (e) => {
-    setTaskTitle(e.target.value);
-  };
+  const handleCourseChange=(event)=>{
+    setCourseCode(event.target.value);
+  }
 
   const handleAssign = async () => {
-    if (!selectedStaff || !taskDescription || !dueDate || !taskTitle) {
+    if (!selectedStaff || !department|| !teacher) {
       setMessage("All fields are required.");
       return;
     }
 
-    const newTask = {
-      assign_to: selectedStaff,
-      assign_date: new Date().toISOString(),
-      due_date: dueDate,
-      task_title: taskTitle,
-      task_description: taskDescription,
-      task_attachment: taskAttachment,
-      task_status: 0,
+    const newAssignedCourse = {
+      Teacher_name: selectedStaff,
+      Department_name:department,
+      Course_code:courseCode
     };
 
     const config = {
@@ -90,21 +76,19 @@ const StaffDropdown = () => {
 
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/task/add`,
-        newTask,
+        `${process.env.REACT_APP_API_URL}/assigncourse/add`,
+        newAssignedCourse,
         config
       );
       // console.log(response.data);
       if (response.data) {
-        setMessage("Task added successfully.");
+        setMessage(`Course added successfully and course code is ${courseCode}.`);
         setSelectedStaff("");
-        setTaskDescription("");
-        setDueDate("");
-        setTaskTitle("");
-        setTaskAttachment("");
+        setCourseCode("");
+        setDepartment("");
         setShowModal(true); // Set showModal to true on successful task assignment
       } else {
-        setMessage("Failed to add task. Please try again.");
+        setMessage("Failed to add course. Please try again.");
       }
     } catch (error) {
       console.error("Error assigning task:", error);
@@ -144,7 +128,7 @@ const StaffDropdown = () => {
   <select
     id="staff"
     value={selectedStaff}
-    onChange={handleStaffChange}
+    onChange={handleTeacherChange}
     className="select-box white-background"
   >
     <option value="">Choose faculty member</option>
@@ -167,8 +151,8 @@ const StaffDropdown = () => {
                 className="form-control"
                 placeholder="Enter title for task"
                 id="task_title"
-                value={taskTitle}
-                onChange={handleTitleChange}
+                value={courseCode}
+                onChange={handleCourseChange}
               />
             </div>
             <button onClick={handleAssign} className="assign-button">
