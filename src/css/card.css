@@ -1,20 +1,22 @@
+/* Main container for the cards */
 .card-container {
   margin-top: 80px; /* Adjust with navbar height */
-  margin-left: 270px; /* Adjust to match the width of the sidebar */
+  margin-left: 270px; /* Adjust to match the width of the expanded sidebar */
   margin-right: 20px;
   margin-bottom: 20px;
   box-sizing: border-box;
-  /* border: 2px solid #050505;MainCard border */
-  border-radius: 5px; /* MainCard border radius */
+  transition: margin-left 0.3s ease; /* Smooth transition when sidebar changes */
 }
 
+/* Container for the subcards */
 .subcard-container {
-  display: flex; /* Set to flex container */
-  flex-wrap: wrap; /* Allow cards to wrap to the next line */
-  justify-content: space-between; /* Distribute space evenly between cards */
-  gap: 20px; /* Add margin between rows of cards */
+  display: flex; /* Flex container for subcards */
+  flex-wrap: wrap; /* Wrap cards to the next line if necessary */
+  justify-content: space-between; /* Evenly distribute the space between cards */
+  gap: 20px; /* Add spacing between rows and columns of cards */
 }
 
+/* Individual card styling */
 .card {
   display: flex;
   flex-direction: column;
@@ -23,20 +25,44 @@
   border-radius: 10px;
   padding: 20px;
   width: 300px; /* Fixed width for all cards */
-  min-height: 400px; /* Minimum height to ensure consistency */
+  min-height: 400px; /* Ensure consistent minimum height */
   box-sizing: border-box;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow for better visual appeal */
-  transition: transform 0.3s ease; /* Smooth transition for hover effect */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add subtle shadow for visual appeal */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effects */
 }
 
+/* Hover effect on cards */
 .card:hover {
-  transform: translateY(-5px); /* Slightly raise the card on hover */
+  transform: translateY(-5px); /* Slight lift on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Slightly stronger shadow on hover */
 }
 
-
+/* Card header styling */
 .card-header {
-  display: flex; /* Use flexbox for header */
-  align-items: center; /* Center horizontally */
-  justify-content: center; /* Center horizontally */
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%; /* Full width */
+}
+
+/* Sidebar collapsed state handling */
+.sidebar.collapsed + .card-container {
+  margin-left: 80px; /* Adjust left margin when sidebar is collapsed */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .card-container {
+    margin-left: 50px; /* Narrower left margin for mobile when sidebar is collapsed */
+    margin-right: 10px; /* Adjust right margin on smaller screens */
+  }
+
+  .subcard-container {
+    gap: 10px; /* Reduce gap between cards for smaller screens */
+  }
+
+  .card {
+    width: 100%; /* Make cards responsive to screen size */
+    min-height: auto; /* Remove fixed height on mobile */
+  }
 }

@@ -1,66 +1,134 @@
-/* styles for sidebar */
+/* Sidebar container */
 .sidebar {
   width: 250px;
   height: 100%;
   position: fixed;
   top: 60px; /* Adjust with navbar height */
   left: 0;
-  background-color: #0f0e0e;
+  background-color: #1c1b1b; /* Darker background for a sleek look */
   color: white;
+  transition: width 0.3s ease; /* Smooth transition for width changes */
+  z-index: 1000; /* Ensure it stays above the main content */
 }
 
+/* Sidebar collapsed state */
+.sidebar.collapsed {
+  width: 60px; /* Shrink width when collapsed */
+}
+
+/* Sidebar header */
 .sidebar-header {
   padding: 20px;
   text-align: center;
-  border-bottom: 1px solid #555;
+  border-bottom: 2px solid #f3f1f1; /* Thinner and darker border */
+  position: relative; /* Allow toggle button to be positioned inside */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
+/* Toggle button styling */
+.toggle-btn {
+  position: absolute; /* Position the button absolutely */
+  top: 10px; /* Adjust to position it 10px from the top */
+  right: 10px; /* Adjust to position it 10px from the right */
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 24px;
+  color: #fff;
+  padding: 10px; /* Keep padding for a larger click area */
+}
+
+/* Header title text */
 .sidebar-header h2 {
-  margin: 0;
-  color: white; /* Set text color to white */
+  margin: 30px 0 0 0; /* Space below the toggle button */
+  font-size: 18px; /* Adjust font size for better fit */
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Remove underline from Link component inside h2 */
-.sidebar-header a {
-  text-decoration: none; /* Remove underline */
+.sidebar-header h2 .icon {
+  margin-right: 10px;
+  font-size: 24px; /* Adjust icon size */
 }
 
+/* Sidebar menu */
 .sidebar-menu {
-  padding: 20px;
+  padding: 20px 0;
 }
 
 .sidebar-menu ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
+/* Sidebar menu items */
 .sidebar-menu li {
-  margin-bottom: 15px;
+  margin-bottom: 10px; /* Reduce gap between items */
   cursor: pointer;
   display: flex;
   align-items: center;
+  padding: 10px 20px;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
+/* Link styles */
 .sidebar-menu li a {
   text-decoration: none; /* Remove underline */
-  color: white; /* Change text color to white */
+  color: white; /* Text color */
+  display: flex;
+  align-items: center;
+  width: 100%; /* Ensure the link takes up full width */
 }
 
-.sidebar-menu li i {
-  margin-right: 10px;
+.sidebar-menu li .icon {
+  margin-right: 15px; /* Add space between icon and text */
+  font-size: 18px;
+  width: 20px; /* Fixed width for consistent alignment */
 }
 
-/* Style for FontAwesome icons */
-.sidebar-menu li .fa {
-  width: 20px;
-}
-
-/* Hover effect */
+/* Hover effect on menu items */
 .sidebar-menu li:hover {
-  background-color: #444;
+  background-color: #333; /* Darker background on hover */
+  color: #ddd; /* Lighter text color on hover */
 }
 
-/* Active item style */
+/* Active item styling */
 .sidebar-menu li.active {
-  background-color: #555;
+  background-color: #444; /* Slightly different background for active item */
+  color: #ddd; /* Slightly lighter text color for active */
+}
+
+/* Hide text for collapsed sidebar */
+.sidebar.collapsed .sidebar-menu li a span {
+  display: none; /* Hide text when sidebar is collapsed */
+}
+
+/* Hide header text in collapsed mode */
+.sidebar.collapsed .sidebar-header h2 {
+  display: none; /* Hide header text in collapsed mode */
+}
+
+.sidebar.collapsed .sidebar-header {
+  border-bottom: none; /* Remove the default border when collapsed */
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 200px; /* Narrower width on smaller screens */
+  }
+
+  .sidebar.collapsed {
+    width: 50px; /* Smaller width in collapsed mode for mobile */
+  }
+
+  .sidebar-menu li {
+    padding: 10px; /* Adjust padding for smaller screens */
+  }
 }

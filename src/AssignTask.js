@@ -126,12 +126,13 @@ const StaffDropdown = () => {
   };
 
   return (
-    <div className="main-container">
-      <div className="row card-container">
+    <div className="card-container">
+      <div className="main-container">
         <div className="staff-dropdown-container">
           <div className="assign-task-content">
             <h2>Assign Task</h2>
             {message && <p>{message}</p>}
+
             <div className="form-group">
               <label className="label" htmlFor="department">
                 Select Department:

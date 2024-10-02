@@ -20,9 +20,9 @@ const Modal = ({ message, onClose }) => {
 
 const StaffDropdown = () => {
   const [selectedStaff, setSelectedStaff] = useState("");
-  const[courseCode,setCourseCode]=useState("");
-  const[teacher,setTeacher]=useState("");
-  const [message,setMessage]=useState("");
+  const [courseCode, setCourseCode] = useState("");
+  const [teacher, setTeacher] = useState("");
+  const [message, setMessage] = useState("");
   const [staffList, setStaffList] = useState([]);
   const [department, setDepartment] = useState("EEE");
   const [showModal, setShowModal] = useState(false);
@@ -51,20 +51,20 @@ const StaffDropdown = () => {
     setSelectedStaff(event.target.value);
     setTeacher(event.target.value);
   };
-  const handleCourseChange=(event)=>{
+  const handleCourseChange = (event) => {
     setCourseCode(event.target.value);
-  }
+  };
 
   const handleAssign = async () => {
-    if (!selectedStaff || !department|| !teacher) {
+    if (!selectedStaff || !department || !teacher) {
       setMessage("All fields are required.");
       return;
     }
 
     const newAssignedCourse = {
       Teacher_name: selectedStaff,
-      Department_name:department,
-      Course_code:courseCode
+      Department_name: department,
+      Course_code: courseCode,
     };
 
     const config = {
@@ -82,7 +82,9 @@ const StaffDropdown = () => {
       );
       // console.log(response.data);
       if (response.data) {
-        setMessage(`Course added successfully and course code is ${courseCode}.`);
+        setMessage(
+          `Course added successfully and course code is ${courseCode}.`
+        );
         setSelectedStaff("");
         setCourseCode("");
         setDepartment("");
@@ -101,8 +103,8 @@ const StaffDropdown = () => {
   };
 
   return (
-    <div className="main-container">
-      <div className="row card-container">
+    <div className="card-container">
+      <div className="main-container">
         <div className="staff-dropdown-container">
           <div className="assign-task-content">
             <h2>Assign Course</h2>
@@ -122,25 +124,30 @@ const StaffDropdown = () => {
               </select>
             </div>
             <div className="form-group">
-  <label className="label" htmlFor="staff">
-    Select Teacher:
-  </label>
-  <select
-    id="staff"
-    value={selectedStaff}
-    onChange={handleTeacherChange}
-    className="select-box white-background"
-  >
-    <option value="">Choose faculty member</option>
-    {staffList
-      .filter((staff) => staff.role === "professor" || staff.role==="associate_professor" || staff.role==="lecturer")
-      .map((staff) => (
-        <option key={staff.user_id} value={staff.user_id}>
-          {staff.first_name} {staff.last_name}
-        </option>
-      ))}
-  </select>
-</div>
+              <label className="label" htmlFor="staff">
+                Select Teacher:
+              </label>
+              <select
+                id="staff"
+                value={selectedStaff}
+                onChange={handleTeacherChange}
+                className="select-box white-background"
+              >
+                <option value="">Choose faculty member</option>
+                {staffList
+                  .filter(
+                    (staff) =>
+                      staff.role === "professor" ||
+                      staff.role === "associate_professor" ||
+                      staff.role === "lecturer"
+                  )
+                  .map((staff) => (
+                    <option key={staff.user_id} value={staff.user_id}>
+                      {staff.first_name} {staff.last_name}
+                    </option>
+                  ))}
+              </select>
+            </div>
 
             <div className="form-group">
               <label className="label" htmlFor="task_title">
