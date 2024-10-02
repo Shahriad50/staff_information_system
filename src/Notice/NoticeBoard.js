@@ -246,40 +246,39 @@ const NoticeBoard = () => {
         <div className="col-12 notice-board-content my-5">
           <h3> All Notices</h3>
           <div className="notice-list">
-            <table className="table table-striped">
-              <thead>
-                <tr>
-                  <th>SL</th>
-                  <th>Type</th>
-                  <th>Title</th>
-                  <th>Description</th>
-                  <th>Uploaded Date</th>
-                  <th>View File</th>
-                  {/* <th>modify</th> */}
-                </tr>
-              </thead>
-              <tbody>
-                {notices && notices.map((notice,index) => (
-                  <tr key={notice.notice_id}>
-                     <td>{index + 1}</td> {/* Serial number, starting from 1 */}
-                    <td>{notice.notice_type}</td>
-                    <td>{notice.notice_title}</td>
-                    <td>{notice.notice_description}</td>
-                    <td>{(new Date(notice.notice_uploaded_time)).toLocaleString()}</td>
-                    <td>
-                    <a
-    href={`http://localhost:5000/upload/${notice.notice_attachment}`}
-  > <i className="fas fa-file"></i>
-                      </a>
-                    </td>
-                    {/* <td><i className="fas fa-trash"></i></td> */}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <table className="table table-striped">
+  <thead>
+    <tr>
+      <th>SL</th>
+      <th>Type</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Uploaded Date</th>
+      <th>View File</th>
+    </tr>
+  </thead>
+  <tbody>
+    {notices &&
+      notices.map((notice, index) => (
+        <tr key={notice.notice_id}>
+          <td>{index + 1}</td>
+          <td>{notice.notice_type}</td>
+          <td>{notice.notice_title}</td>
+          <td>{notice.notice_description}</td>
+          <td>{new Date(notice.notice_uploaded_time).toLocaleString()}</td>
+          <td>
+            <a href={`http://localhost:5000/upload/${notice.notice_attachment}`}>
+              <i className="fas fa-file"></i>
+            </a>
+          </td>
+        </tr>
+      ))}
+  </tbody>
+</table>
+
           </div>
           </div>
-          <div className="pagination mx-3">
+                <div className="pagination d-flex justify-content-center align-items-center my-5">
         <button className="btn btn-primary mx-3" onClick={() => fetchNotices(prevPage)} disabled={!prevPage}>
           Previous
         </button>
@@ -287,6 +286,7 @@ const NoticeBoard = () => {
           Next
         </button>
       </div>
+
         </div>
     
       <div className="col-4">

@@ -44,7 +44,7 @@ const DescriptionPage = () => {
           "Authorization": `Bearer ${token}`
         },
       };
-      const response = await axios.put(`http://api.bike-csecu.com/api/task/update/${taskId}`, { task_status: newStatus }, config);
+      const response = await axios.put(`${process.env.REACT_APP_API_URL}/task/update/${taskId}`, { task_status: newStatus }, config);
       console.log(response.data);
 
       // Update local state
@@ -73,6 +73,8 @@ const DescriptionPage = () => {
         <div>
           <h4>{task.task_title}</h4>
           <p>{task.task_description}</p>
+          <button className="btn btn-secondary"> <a href={`http://localhost:5000/upload/${task.task_attachment}`}>{task.task_title}</a></button>
+         
           <p>Have you completed your task?</p>
           <button className="yes-no-buttons" onClick={() => handleStatusChange(task.task_id, 1)}>Yes</button>
           <button className="yes-no-buttons" onClick={() => handleStatusChange(task.task_id, 0)}>No</button>

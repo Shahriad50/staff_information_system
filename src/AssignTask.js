@@ -64,62 +64,107 @@ const StaffDropdown = () => {
     setTaskTitle(e.target.value);
   };
 
-  const handleFileChange = async (e) => {
+  const handleFileChange = (e) => {
     e.preventDefault();
     const file = e.target.files[0];
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      setTaskAttachment(reader.result);
-    };
-    reader.readAsDataURL(file);
+    console.log({file});
+    setTaskAttachment(file);
   };
-
-  const handleAssign = async () => {
-    if (!selectedStaff || !taskDescription || !dueDate || !taskTitle) {
+  
+  const handleAssign = async (e) => {
+    e.preventDefault();
+  
+    if (!selectedStaff || !taskDescription || !dueDate || !taskTitle ) {
       setMessage("All fields are required.");
       return;
     }
-
+  
     const newTask = {
       assign_to: selectedStaff,
-      assign_date: new Date().toISOString(),
+      //assign_date: new Date().toISOString(),
       due_date: dueDate,
       task_title: taskTitle,
       task_description: taskDescription,
-      task_attachment: taskAttachment,
+      task_attachment:taskAttachment,
       task_status: 0,
     };
-
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
+  
     try {
+      let task_attachmentUrl = "";
+      // Upload the file first
+      if(taskAttachment){
+        const fileData = new FormData();
+        fileData.append("items", taskAttachment);
+        const uploadConfig = {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            "Authorization": `Bearer ${token}`
+          },
+        };
+
+        const uploadResponse = await axios.post(
+          `${process.env.REACT_APP_API_URL}/upload`,
+          fileData,
+          uploadConfig
+        );
+    
+        if (uploadResponse.status === 201) {
+          const data = uploadResponse.data;
+    
+          // Assuming the uploaded file information is in `data.file`
+          if(data.files && data.files.length >0){
+            task_attachmentUrl = `${data.files[0].filename}`;
+          } else {
+            setMessage("Failed to upload the file.");
+            return;
+          }
+      }
+    }
+     // Add the file URL or name to the newTask object
+      const taskPayload = {
+        ...newTask,
+        task_attachment: task_attachmentUrl,
+      };
+  
+      // Now post the new task with the file URL
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
+  
       const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/task/add`,
-        newTask,
+        taskPayload,
         config
       );
-      // console.log(response.data);
+  
       if (response.data) {
         setMessage("Task added successfully.");
+        // Reset all input
         setSelectedStaff("");
         setTaskDescription("");
         setDueDate("");
         setTaskTitle("");
-        setTaskAttachment("");
-        setShowModal(true); // Set showModal to true on successful task assignment
+        setTaskAttachment(null); 
+        setShowModal(true);
       } else {
         setMessage("Failed to add task. Please try again.");
       }
-    } catch (error) {
-      console.error("Error assigning task:", error);
-      setMessage("Failed to assign task. Please try again.");
+    }catch (error) {
+      if (error.response && error.response.status === 400) {
+        console.error("Request failed with status code 400");
+      } else {
+        console.error(error);
+      }
     }
+    //  catch (error) {
+    //   console.error("Error assigning task:", error);
+    //   setMessage("Failed to assign task. Please try again.");
+    // }
   };
+  
 
   const closeModal = () => {
     setShowModal(false); // Function to close the modal
