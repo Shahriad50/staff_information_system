@@ -98,7 +98,12 @@ const NoticeBoard = () => {
   };
   const onChange = (e) => {
     e.preventDefault();
-    setNoticeData({ ...noticeData, [e.target.name]: e.target.value });
+    if (e.target.name === "notice_attachment") {
+      // Handle file separately
+      setNoticeData({ ...noticeData, [e.target.name]: e.target.files[0] });
+    } else {
+      setNoticeData({ ...noticeData, [e.target.name]: e.target.value });
+    }
     // console.log(e.target.value)
   };
 
@@ -134,13 +139,41 @@ const NoticeBoard = () => {
         notice_title: '',
         notice_type: 'Event',
         notice_description: '',
-        notice_attachment: ''
+        notice_attachment: null,
       });
     }
   }, [showModal]);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      let noticeAttachmentUrl="";
+      if(noticeData.notice_attachment){
+        const formData=new FormData();
+        formData.append("items",noticeData.notice_attachment);
+
+        const uploadConfig={
+          headers:{
+            "Content-Type": "multipart/form-data",
+            "Authorization":`Bearer ${token}`,
+          }
+        }
+        const uploadResponse=await axios.post(
+          `${process.env.REACT_APP_API_URL}/upload`,formData,uploadConfig
+        );
+        if(uploadResponse.status===201){
+          const data=uploadResponse.data;
+          if(data.files && data.files.length >0){
+            noticeAttachmentUrl=`${data.files[0].filename}`;
+          }
+          else{
+            alert("failed to upload the file")
+          }
+        }
+      }
+      const noticePayload = {
+        ...noticeData,
+        notice_attachment: noticeAttachmentUrl,
+      };
       const config = {
         headers: {
           
@@ -148,7 +181,7 @@ const NoticeBoard = () => {
           "Authorization": `Bearer ${token}`
         },
       };
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/notice/`, noticeData, config);
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/notice/`, noticePayload, config);
       if (response.status === 200) {
         const data = await response.data;
         if (data.success) {
@@ -222,22 +255,24 @@ const NoticeBoard = () => {
                   <th>Description</th>
                   <th>Uploaded Date</th>
                   <th>View File</th>
+                  {/* <th>modify</th> */}
                 </tr>
               </thead>
               <tbody>
-                {notices && notices.map((notice) => (
+                {notices && notices.map((notice,index) => (
                   <tr key={notice.notice_id}>
-                    <td>{notice.notice_id}</td>
+                     <td>{index + 1}</td> {/* Serial number, starting from 1 */}
                     <td>{notice.notice_type}</td>
                     <td>{notice.notice_title}</td>
                     <td>{notice.notice_description}</td>
                     <td>{(new Date(notice.notice_uploaded_time)).toLocaleString()}</td>
                     <td>
-                      <a href={process.env.PUBLIC_URL + "/" + notice.notice_attachment}>
-                        {" "}
-                        <i className="fas fa-file"></i>
+                    <a
+    href={`http://localhost:5000/upload/${notice.notice_attachment}`}
+  > <i className="fas fa-file"></i>
                       </a>
                     </td>
+                    {/* <td><i className="fas fa-trash"></i></td> */}
                   </tr>
                 ))}
               </tbody>
@@ -334,7 +369,7 @@ const NoticeBoard = () => {
                 </div>
                 <div className="file-upload-container">
                   <label htmlFor="file" className="input-level mx-3 my-2 ">Add File :</label>
-                  <input className="file-input mx-2" type="file" id="file" name="notice_attachment" accept="*/*" value={noticeData.notice_attachment} onChange={onChange}/>
+                  <input className="file-input mx-2" type="file" id="file" name="notice_attachment" accept="*/*"  onChange={onChange}/>
                 </div>
               </form>
             </div>
