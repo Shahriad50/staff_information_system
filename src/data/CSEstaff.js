@@ -1,7 +1,11 @@
 import noimage from "../assets/noimage.jpg"; // Import the image file
+import pic1 from "../assets/pic1.jpg"; // Import the image file
+import pic2 from "../assets/pic2.jpg"; // Import the image file
+import pic3 from "../assets/pic3.jpg"; // Import the image file
+
 const CSEStaffData = [
   {
-    image: noimage,
+    image: pic3,
     name: {
       english: "Mr. Muhammad Didarul Alam",
       bengali: "জনাব মুহাম্মদ দিদারুল আলম",
@@ -19,7 +23,7 @@ const CSEStaffData = [
     nationality: "Bangladeshi",
   },
   {
-    image: noimage,
+    image: pic1,
     name: {
       english: "Mr. A.M. Mannan",
       bengali: "জনাব এ.এম.মান্নান",
@@ -37,7 +41,7 @@ const CSEStaffData = [
     nationality: "Bangaldeshi",
   },
   {
-    image: noimage,
+    image: pic2,
     name: {
       english: "Mr. Rahatuzzaman Islam",
       bengali: "জনাব রাহাতুজ্জামান ইসলাম",
