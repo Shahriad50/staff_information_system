@@ -5,7 +5,7 @@ import "./css/worklist.css";
 import axios from "axios";
 import { WorklistContext } from './WorklistContext';
 
-const session_token=process.env.REACT_APP_SESSION_TOKEN
+// const session_token=process.env.REACT_APP_SESSION_TOKEN
 const Worklist = () => {
   const { worklists, setWorklists } = useContext(WorklistContext);
 
@@ -19,13 +19,12 @@ const Worklist = () => {
     fetchWorkList(firstPage);
   },[]);
   const fetchWorkList=async(pageNumber)=>{
-      const config = {
-          headers: {
-            
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${session_token}`
-          },
-        };
+      // const config = {
+      //     headers: { 
+      //       "Content-Type": "application/json",
+      //       "Authorization": `Bearer ${session_token}`
+      //     },
+      //   };
     try{
       const response=await axios.get(`${process.env.REACT_APP_API_URL}/task?page=${pageNumber.page}`);
       // console.log(response.data);
@@ -37,6 +36,8 @@ const Worklist = () => {
         setNextPage(response.data.next);
         setPrevPage(response.data.previous);
         // console.log(worklists.length)
+        // console.log(totalRecords);
+        // console.log(pageCount)
       }
       else{
         console.log(response.status);
@@ -77,7 +78,7 @@ const Worklist = () => {
           ))}
         </tbody>
       </table>
-      <div className="pagination mx-3">
+      <div className="pagination d-flex justify-content-center align-items-center my-5">
         <button className="btn btn-primary mx-3" onClick={() => fetchWorkList(prevPage)} disabled={!prevPage}>
           Previous
         </button>
